@@ -53,6 +53,7 @@
   "dependencies": {
     "@adonisjs/auth": "^9.2.3",
     "@adonisjs/core": "^6.12.1",
+    "@adonisjs/drive": "^3.2.0",
     "@adonisjs/lucid": "^21.2.0",
     "@adonisjs/session": "^7.4.2",
     "@adonisjs/shield": "^8.1.1",
@@ -62,7 +63,10 @@
     "better-sqlite3": "^11.3.0",
     "edge.js": "^6.0.2",
     "luxon": "^3.5.0",
-    "reflect-metadata": "^0.2.2"
+    "nanoid": "^5.0.7",
+    "openai": "^4.63.0",
+    "reflect-metadata": "^0.2.2",
+    "sharp": "^0.33.5"
   },
   "hotHook": {
     "boundaries": [
