@@ -9,7 +9,7 @@
       {{ title || "Convierte tus fotografías en poemas - poesia.pics" }}
     </title>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
 
     @if ($slots.meta)
       {{{ await $slots.meta() }}}
@@ -21,7 +21,7 @@
     @include('partials/topbar')
 
     <main class="flex min-h-screen w-full flex-col items-center justify-center pt-20">
-      <div class="flex flex-1 max-w-2xl p-5 pb-20">
+      <div class="flex flex-1 max-w-2xl p-5 md:pb-20">
         @if ($slots.main)
           {{{ await $slots.main() }}}
         @end

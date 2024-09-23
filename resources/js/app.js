@@ -1,6 +1,5 @@
+import '../css/app.css'
 import 'iconify-icon'
-
-console.log('Hello World')
 
 window.onload = () => {
   const form = document.querySelector('form')

@@ -1,5 +1,39 @@
 @layouts.app()
-  <h1>
-    Hello world
-  </h1>
+  <div class="flex flex-col items-center justify-center">
+    <h1 class="md:mt-10 text-center font-display text-5xl font-bold md:text-7xl md:leading-[5rem]">
+      Tus imágenes se vuelven <span class="italic font-serif">poesía</span>
+    </h1>
+
+    <p class="my-7 text-center text-gray-500 md:text-xl">
+      Con Inteligencia Artificial convertimos tus fotografías en poemas.
+    </p>
+
+    <form action="/" method="POST" enctype="multipart/form-data" name="form">
+      {{ csrfField() }}
+      <div class="flex items-end justify-center mt-6 space-x-4 flex-wrap">
+        <button class="btn btn-primary gap-3" id="upload" type="button">
+          Subir foto
+          <iconify-icon class="block" icon="ph:upload" height="24">
+          </iconify-icon>
+        </button>
+
+        <input id="image" name="image" type="file" accept="image/jpg,image/png,image/webp,image/jpeg" hidden />
+      </div>
+
+      <p class="mt-2 text-center text-xs text-gray-500">
+        Puede que obtengas mejores resultados con fotografías de paisajes y retratos.
+      </p>
+
+      <div class="alert border border-amber-100 shadow-lg mt-10 bg-amber-50">
+        <iconify-icon icon="ph:info" width="20">
+        </iconify-icon>
+
+        <h3 class="font-bold text-xs">
+          Los poemas generados estarán disponibles por 24 horas. Luego de ese tiempo serán eliminados junto a las imágenes usadas.
+        </h3>
+      </div>
+
+    </form>
+
+  </div>
 @end
