@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
     <title>
-      {{ title || "Your default title" }}
+      {{ title || "Convierte tus fotografías en poemas - poesia.pics" }}
     </title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -15,7 +16,22 @@
     @endif
     
   </head>
-  <body>
-    {{{ await $slots.main() }}}
+  <body class="bg-base-200 min-h-screen">
+
+    @include('partials/topbar')
+
+    <main class="flex min-h-screen w-full flex-col items-center justify-center pt-20">
+      <div class="flex flex-1 max-w-2xl p-5 pb-20">
+        @if ($slots.main)
+          {{{ await $slots.main() }}}
+        @end
+      </div>
+
+      @include('partials/footer')
+    </main>
+
+    @if ($slots.scripts)
+      {{{ await $slots.scripts() }}}
+    @end
   </body>
 </html>
