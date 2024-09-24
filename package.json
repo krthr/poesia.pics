@@ -75,6 +75,7 @@
     "luxon": "^3.5.0",
     "nanoid": "^5.0.7",
     "node-addon-api": "^8.1.0",
+    "node-gyp": "^10.2.0",
     "openai": "^4.63.0",
     "reflect-metadata": "^0.2.2",
     "sharp": "^0.33.5",
