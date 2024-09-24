@@ -24,9 +24,9 @@ export function imageKey(id: string) {
 export default class ImageService {
   constructor(protected ctx: HttpContext) {}
 
-  private async generateThumbnail(buff: Buffer) {
+  private async generateThumbnail(sharp: Sharp.Sharp) {
     try {
-      const thumbnailBuffer = await Sharp(buff).jpeg().resize(5, null).blur(10).toBuffer()
+      const thumbnailBuffer = await sharp.clone().resize(5, null).blur(10).toBuffer()
       return bufferToBase64(thumbnailBuffer)
     } catch (error) {
       this.ctx.logger.error(error)
@@ -45,13 +45,15 @@ export default class ImageService {
       this.ctx.logger.debug({ originalPath }, 'reading file from disk')
       const buff: Buffer = await readFile(originalPath)
 
-      const imagePreview = await this.generateThumbnail(buff)
-
       const imageWidth = 800
-      let imageHeight
+      const sharp = Sharp(buff).jpeg({ quality: 90 }).resize(imageWidth, null).withMetadata()
 
-      const sharp = Sharp(buff).jpeg({ quality: 90 }).resize(imageWidth, null)
-      const imageBuffer = await sharp.toBuffer()
+      const [imageBuffer, imagePreview] = await Promise.all([
+        sharp.toBuffer(),
+        this.generateThumbnail(sharp),
+      ])
+
+      let imageHeight
       const imageMetadata = await sharp.metadata()
 
       if (
