@@ -1,5 +1,9 @@
 FROM node:20.15-alpine AS base
 
+RUN apk add --no-cache \
+  libheif-dev
+
+
 # All deps stage
 FROM base AS deps
 WORKDIR /app
