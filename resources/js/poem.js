@@ -7,10 +7,12 @@ const SAFARI = /safari|applewebkit/i
 /**
  *
  * @param {HTMLElement} node
- * @param {string} caption
+ * @param {HTMLElement} title
  * @returns
  */
-export async function generateAndDownloadImage(node, caption) {
+export async function generateAndDownloadImage(node, title) {
+  console.log({ title }, 'generateAndDownloadImage')
+
   const userAgent = navigator.userAgent
 
   const { toBlob } = await import('html-to-image')
@@ -38,7 +40,7 @@ export async function generateAndDownloadImage(node, caption) {
 
   const dataUrl = URL.createObjectURL(blob)
   const a = document.createElement('a')
-  a.download = `${caption.toLowerCase()}-${Date.now()}.jpg`
+  a.download = `${title.textContent.toLowerCase().trim()}-${Date.now()}.jpg`
   a.href = dataUrl
   a.click()
 
@@ -47,13 +49,14 @@ export async function generateAndDownloadImage(node, caption) {
 
 window.onload = () => {
   const poem = document.querySelector('#poem')
+  const title = document.querySelector('#title')
   const bownloadBtn = document.querySelector('#download-poem')
 
   bownloadBtn.onclick = async () => {
     bownloadBtn.setAttribute('disabled', true)
     bownloadBtn.classList.add('loading')
 
-    await generateAndDownloadImage(poem, window.poem.title)
+    await generateAndDownloadImage(poem, title)
 
     bownloadBtn.removeAttribute('disabled')
     bownloadBtn.classList.remove('loading')
