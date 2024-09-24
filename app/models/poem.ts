@@ -57,7 +57,7 @@ export default class Poem extends BaseModel {
     return humanizeDuration(formatted, {
       language: 'es',
       units: ['h'],
-      maxDecimalPoints: 0,
+      round: true,
     })
   }
 }
