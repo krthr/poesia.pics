@@ -58,6 +58,9 @@ window.onload = () => {
 
     await generateAndDownloadImage(poem, title)
 
+    window.gtag && window.gtag('event', 'share')
+    window.LogRocket && window.LogRocket.track('share')
+
     bownloadBtn.removeAttribute('disabled')
     bownloadBtn.classList.remove('loading')
   }

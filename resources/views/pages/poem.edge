@@ -1,10 +1,16 @@
-@layouts.app()
+@let(image = await driveUrl(poem.imagePath))
+
+@layouts.app({
+  title: poem.title,
+  description: truncate(poem.poem, 160),
+  image: 'https://poesia.pics' + image
+})
   <div class="w-full">
     <div id="poem">
       <img
         class="w-full h-auto rounded-md lazyload"
         alt="{{ poem.title }}"
-        data-src="{{ await driveUrl(poem.imagePath) }}"
+        data-src="{{ image }}"
         src="{{ poem.imagePreview }}"
         width="100%"
         height="auto"
@@ -13,13 +19,19 @@
         "
       />
 
-      <h1 id="title" class="text-xl mb-10 mt-5 font-serif font-light italic text-center">{{ poem.title }}</h1>
+      <h1 id="title" class="text-xl mb-10 mt-5 font-serif font-light italic text-center">
+        {{ poem.title }}
+      </h1>
 
-      <p class="whitespace-pre-wrap font-serif my-5">{{ poem.poem }}</p>
+      <p class="whitespace-pre-wrap font-serif my-5">
+        {{ poem.poem }}
+      </p>
 
       <p class="mt-10">
         <ul class="text-xs italic my-5 font-serif">
-          <li>Emoción: {{ MOODS_DICT[poem.mood].label }}</li>
+          <li>
+            Emoción: {{ MOODS_DICT[poem.mood].label }}
+          </li>
         </ul>
       </p>
 

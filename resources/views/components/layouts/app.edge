@@ -2,19 +2,71 @@
 <html lang="es" data-theme="pastel">
   <head>
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="poesía.pics - Convierte tus fotografías en poesía" />
+    <meta name="theme-color" content="#dd2d44" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
+    <meta property="og:image" content="{{ title }} - poesia.pics" />
+    <link rel="icon" href="/icons/64x64.aa5b2829.png" data-h-2c9d455="" />
+    <link
+      rel="apple-touch-icon"
+      href="/icons/512x512.maskable.aa5b2829.png"
+      sizes="512x512"
+      data-h-bc1de16=""
+    />
+
+    <meta property="og:site_name" content="poesia.pics" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es" />
+
+    <meta
+      name="description"
+      content="{{ description || 'poesía.pics - Convierte tus fotografías en poesía' }}"
+    />
+    <meta
+      property="og:description"
+      content="{{ description || 'poesía.pics - Convierte tus fotografías en poesía' }}"
+    />
+
+    <meta property="og:image" content="{{ image ||  'https://poesia.pics/icon.png' }}" />
+    <meta name="twitter:image" content="{{ image ||  'https://poesia.pics/icon.png' }}" />
+
+    <meta name="og:url" content="{{ request.completeUrl() }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta property="og:title" content="{{ title || 'Convierte tus fotografías en poesía' }} - poesia.pics" />
+
     <title>
-      {{ title || "Convierte tus fotografías en poemas - poesia.pics" }}
+      {{ title || 'Convierte tus fotografías en poesía' }} - poesia.pics
     </title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K40DJ3THNZ">
+      
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      
+      gtag("js", new Date());
+      
+      gtag("config", "G-K40DJ3THNZ", {
+        user_id: window.uid
+      });
+    </script>
 
     @vite(['resources/js/app.js'])
 
     @if ($slots.meta)
       {{{ await $slots.meta() }}}
     @endif
-    
+      
   </head>
   <body class="bg-base-200 min-h-screen">
 
@@ -31,5 +83,13 @@
     @if ($slots.scripts)
       {{{ await $slots.scripts() }}}
     @end
+      
+    <script src="https://cdn.lr-ingest.com/LogRocket.min.js" crossorigin="anonymous">
+      
+    </script>
+    <script>
+      window.location.host === "poesia.pics" && window.LogRocket && window.LogRocket.init("poesiapics/poesiapics");
+      // window.uid && window.LogRocket && window.LogRocket.identify(window.uid)
+    </script>
   </body>
 </html>
