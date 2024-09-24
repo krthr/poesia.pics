@@ -1,7 +1,7 @@
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 import { MOODS } from '../constants/moods.js'
 
-const VALID_IMG_EXTNAMES = ['jpg', 'jpeg', 'png', 'webp']
+const VALID_IMG_EXTNAMES = ['jpg', 'jpeg', 'png', 'webp', 'jfif', 'heic']
 
 export const poemStoreValidator = vine.compile(
   vine.object({
