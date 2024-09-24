@@ -95,6 +95,7 @@ export default class PoemService {
     this.ctx.logger.info({ id, mood }, 'generating a new poem')
 
     const processedImage = await this.imageService.processAndStore(id, imagePath)
+
     const response = await this.createChatCompletions(id, mood, processedImage.imageBase64)
 
     try {

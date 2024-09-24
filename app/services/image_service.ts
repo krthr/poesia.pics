@@ -46,23 +46,14 @@ export default class ImageService {
       const buff: Buffer = await readFile(originalPath)
 
       const imageWidth = 800
-      const sharp = Sharp(buff).jpeg({ quality: 90 }).resize(imageWidth, null).withMetadata()
+      const sharp = Sharp(buff).jpeg({ quality: 90 }).resize(imageWidth, null).rotate()
 
       const [imageBuffer, imagePreview] = await Promise.all([
         sharp.toBuffer(),
         this.generateThumbnail(sharp),
       ])
 
-      let imageHeight
-      const imageMetadata = await sharp.metadata()
-
-      if (
-        imageMetadata &&
-        typeof imageMetadata.height === 'number' &&
-        typeof imageMetadata.width === 'number'
-      ) {
-        imageHeight = Math.ceil(imageMetadata.height * (imageWidth / imageMetadata.width))
-      }
+      const { height: imageHeight } = await Sharp(imageBuffer).metadata()
 
       const imagePath = imageKey(id)
       await drive.use().put(imagePath, imageBuffer)
