@@ -1,0 +1,63 @@
+@vite(['resources/css/app.css'])
+
+<div class="w-full">
+  <div class="max-w-6xl mx-auto">
+    <div class="card card-bordered">
+      <table class="table">
+
+        <thead>
+          <tr>
+            <th>
+              ID
+            </th>
+            <th width="200px">
+              Imagen
+            </th>
+            <th>
+              Título
+            </th>
+            <th>
+              Emoción
+            </th>
+            <th>
+              Poema
+            </th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+          @each(poem in poems)
+            <tr>
+              <th>
+                <a href="/{{ poem.id }}" target="_blank">
+                  {{ poem.id }}
+                </a>
+              </th>
+              <td>
+                <img src="{{ await driveUrl(poem.imagePath) }}" class="rounded w-[200px]" width="200px" />
+              </td>
+              <td>
+                {{ poem.title }}
+              </td>
+              <td>
+                {{ poem.mood }}
+              </td>
+              <td>
+                {{ truncate(poem.poem, 500) }}
+              </td>
+              <td>
+                {{ poem.createdAt.setLocale('es-CO').toLocaleString({  }) }}
+              </td>
+            </tr>
+          @end
+        </tbody>
+
+      </table>
+
+      {{--  {{ inspect(poems) }}  --}}
+    </div>
+
+  </div>
+
+</div>

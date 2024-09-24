@@ -9,7 +9,10 @@
 
 import router from '@adonisjs/core/services/router'
 
+const AdminController = () => import('#controllers/admin_controller')
 const PoemsController = () => import('#controllers/poems_controller')
+
+router.get('/_', [AdminController, 'index'])
 
 router.get('/', [PoemsController, 'index'])
 router.post('/', [PoemsController, 'store'])
