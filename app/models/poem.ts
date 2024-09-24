@@ -1,6 +1,6 @@
 import type { Mood } from '#constants/moods'
 
-import { DateTime, Interval } from 'luxon'
+import { DateTime, Duration, Interval } from 'luxon'
 import { BaseModel, column, computed } from '@adonisjs/lucid/orm'
 
 import humanizeDuration from 'humanize-duration'
@@ -42,11 +42,19 @@ export default class Poem extends BaseModel {
   declare updatedAt: DateTime
 
   @computed()
+  get isExpired() {
+    return this.createdAt.diffNow().hours > 24
+  }
+
+  @computed()
   get timeToBeDeleted() {
-    const formatted = Interval.fromDateTimes(this.createdAt, DateTime.now())
+    const formatted = Interval.fromDateTimes(
+      this.createdAt,
+      this.createdAt.plus(Duration.fromObject({ hours: 24 }))
+    )
       .toDuration(['hours'])
       .valueOf()
 
-    return humanizeDuration(formatted, { language: 'es', units: ['h'], maxDecimalPoints: 0 })
+    return humanizeDuration(formatted, { language: 'es', units: ['h'] })
   }
 }

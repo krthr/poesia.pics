@@ -41,6 +41,12 @@
         <input id="image" name="image" type="file" accept="image/jpg,image/png,image/webp,image/jpeg" hidden />
       </div>
 
+      @error('E_EXPIRED_POEM')
+        <p class="mt-2 text-center text-red-700 font-bold">
+          {{ $message }}
+        </p>
+      @end
+      
       @each(field in ['image', 'mood'])
         @inputError(field)
           @each(message in $messages)

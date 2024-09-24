@@ -11,7 +11,9 @@ export default class PoemsController {
   /**
    * Display a list of resource
    */
-  async index({}: HttpContext) {}
+  async index({ view }: HttpContext) {
+    return view.render('pages/home')
+  }
 
   /**
    * Handle form submission for the create action
@@ -33,11 +35,20 @@ export default class PoemsController {
   /**
    * Show individual record
    */
-  async show({ params, response, view }: HttpContext) {
+  async show({ params, response, session, view }: HttpContext) {
     const id = params['id']
     const poem = await Poem.findBy('id', id)
 
     if (!poem) {
+      return response.redirect('/')
+    }
+
+    if (poem.isExpired) {
+      session.flashAll()
+      session.flashErrors({
+        E_EXPIRED_POEM: 'El poema ha expirado.',
+      })
+
       return response.redirect('/')
     }
 
