@@ -8,6 +8,8 @@ import drive from '@adonisjs/drive/services/main'
 
 import path from 'node:path'
 
+import ImageProcessingException from '#exceptions/image_processing_exception'
+
 function bufferToBase64(buff: Buffer) {
   return 'data:image/jpeg;base64,' + buff.toString('base64')
 }
@@ -32,30 +34,43 @@ export default class ImageService {
   }
 
   async processAndStore(id: string, originalPath?: string) {
+    if (!originalPath) {
+      this.ctx.logger.error({ id, originalPath }, 'no original path')
+      throw new ImageProcessingException()
+    }
+
+    this.ctx.logger.info({ id, originalPath }, 'processing new image')
+
     try {
-      if (!originalPath) {
-        throw new Error('Invalid originalPath')
-      }
-
-      this.ctx.logger.info({ id, originalPath }, 'ImageService.processAndStore')
-
+      this.ctx.logger.debug({ originalPath }, 'reading file from disk')
       const buff: Buffer = await readFile(originalPath)
 
       const imagePreview = await this.generateThumbnail(buff)
-      if (!imagePreview) {
-        return
-      }
 
-      const imageBuffer = await Sharp(buff).jpeg({ quality: 80 }).resize(500, null).toBuffer()
+      const imageWidth = 800
+      let imageHeight
+
+      const sharp = Sharp(buff).jpeg({ quality: 90 }).resize(imageWidth, null)
+      const imageBuffer = await sharp.toBuffer()
+      const imageMetadata = await sharp.metadata()
+
+      if (
+        imageMetadata &&
+        typeof imageMetadata.height === 'number' &&
+        typeof imageMetadata.width === 'number'
+      ) {
+        imageHeight = Math.ceil(imageMetadata.height * (imageWidth / imageMetadata.width))
+      }
 
       const imagePath = imageKey(id)
       await drive.use().put(imagePath, imageBuffer)
 
       const imageBase64 = bufferToBase64(imageBuffer)
 
-      return { imagePath, imageBase64, imageBuffer, imagePreview }
+      return { imagePath, imageBase64, imageBuffer, imagePreview, imageWidth, imageHeight }
     } catch (error) {
       this.ctx.logger.error(error)
+      throw new ImageProcessingException()
     }
   }
 }
