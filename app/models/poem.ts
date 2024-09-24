@@ -48,13 +48,16 @@ export default class Poem extends BaseModel {
 
   @computed()
   get timeToBeDeleted() {
-    const formatted = Interval.fromDateTimes(
-      this.createdAt,
-      this.createdAt.plus(Duration.fromObject({ hours: 24 }))
-    )
-      .toDuration(['hours'])
+    const expiresAt = this.createdAt.plus(Duration.fromObject({ hours: 24 }))
+
+    const formatted = Interval.fromDateTimes(DateTime.now(), expiresAt)
+      .toDuration(['hour'])
       .valueOf()
 
-    return humanizeDuration(formatted, { language: 'es', units: ['h'] })
+    return humanizeDuration(formatted, {
+      language: 'es',
+      units: ['h'],
+      maxDecimalPoints: 0,
+    })
   }
 }
