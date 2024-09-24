@@ -15,7 +15,6 @@ window.onload = () => {
     const file = files[0]
 
     if (file) {
-      selectImageBtn.setAttribute('disabled', true)
       selectImageBtn.classList.add('loading')
 
       window.gtag && window.gtag('event', 'generate_poem')
