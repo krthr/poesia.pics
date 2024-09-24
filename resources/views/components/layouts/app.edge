@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="cupcake">
+<html lang="es" data-theme="pastel">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,10 +21,8 @@
     @include('partials/topbar')
 
     <main class="flex min-h-screen w-full flex-col items-center justify-center pt-20">
-      <div class="flex flex-1 max-w-2xl p-5 md:pb-20">
-        @if ($slots.main)
-          {{{ await $slots.main() }}}
-        @end
+      <div class="flex flex-1 w-full max-w-2xl md:pb-10 px-8 py-6">
+        {{{ await $slots.main() }}}
       </div>
 
       @include('partials/footer')

@@ -11,6 +11,27 @@
     <form action="/" method="POST" enctype="multipart/form-data" name="form">
       {{ csrfField() }}
       <div class="flex items-end justify-center mt-6 space-x-4 flex-wrap">
+        <div class="form-control flex-1 w-full">
+          <div class="label-text inline-flex">
+            Selecciona la emoción
+            <div
+              class="tooltip"
+              data-tip="La emoción puede influir en el resultado del poema. Por ejemplo, al seleccionar Melancolía tu poema puede sonar un poco más triste."
+            >
+              <iconify-icon class="block ml-2 mb-2" icon="ph:info" height="24">
+              </iconify-icon>
+            </div>
+          </div>
+
+          <select class="select select-bordered w-full" name="mood" id="mood">
+            @each(mood in MOODS)
+              <option value="{{ mood }}">
+                {{ MOODS_DICT[mood].label }}
+              </option>
+            @end
+          </select>
+        </div>
+
         <button class="btn btn-primary gap-3" id="upload" type="button">
           Subir foto
           <iconify-icon class="block" icon="ph:upload" height="24">
@@ -20,18 +41,29 @@
         <input id="image" name="image" type="file" accept="image/jpg,image/png,image/webp,image/jpeg" hidden />
       </div>
 
-      <p class="mt-2 text-center text-xs text-gray-500">
+      @each(field in ['image', 'mood'])
+        @inputError(field)
+          @each(message in $messages)
+            <p class="mt-2 text-center text-red-700 font-bold">
+              {{ message }}
+            </p>
+          @end
+        @end
+      @end
+      
+      @if(error)
+        <p class="mt-2 text-center text-red-700 font-bold">
+          {{ error.message }}
+        </p>
+      @end
+      
+      <p class="mt-2 mb-6 text-center text-xs text-gray-500">
         Puede que obtengas mejores resultados con fotografías de paisajes y retratos.
       </p>
 
-      <div class="alert border border-amber-100 shadow-lg mt-10 bg-amber-50">
-        <iconify-icon icon="ph:info" width="20">
-        </iconify-icon>
-
-        <h3 class="font-bold text-xs">
-          Los poemas generados estarán disponibles por 24 horas. Luego de ese tiempo serán eliminados junto a las imágenes usadas.
-        </h3>
-      </div>
+      @!info({
+        message: 'Los poemas generados estarán disponibles por 24 horas. Luego de ese tiempo serán eliminados junto a las imágenes usadas.'
+      })
 
     </form>
 

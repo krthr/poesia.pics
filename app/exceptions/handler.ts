@@ -1,6 +1,10 @@
+import type { StatusPageRange, StatusPageRenderer } from '@adonisjs/core/types/http'
+
 import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
-import type { StatusPageRange, StatusPageRenderer } from '@adonisjs/core/types/http'
+
+import ImageProcessingException from './image_processing_exception.js'
+import PoemGenerationException from './poem_generation_exception.js'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -34,6 +38,10 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
+    if (error instanceof ImageProcessingException || error instanceof PoemGenerationException) {
+      return ctx.response.status(error.status).send(await ctx.view.render('pages/home', { error }))
+    }
+
     return super.handle(error, ctx)
   }
 

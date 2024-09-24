@@ -16,6 +16,16 @@ export default {
   plugins: [require('daisyui')],
 
   daisyui: {
-    themes: ['cupcake'],
+    themes: [
+      {
+        pastel: {
+          ...require('daisyui/src/theming/themes')['pastel'],
+          '--btn-text-case': 'none',
+          '--rounded-btn': '0.5rem',
+          '--rounded-box': '0.5rem',
+          '--padding-card': '1rem',
+        },
+      },
+    ],
   },
 }
