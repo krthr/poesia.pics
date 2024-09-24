@@ -1,7 +1,7 @@
 FROM node:20.15-alpine AS base
 
 RUN apk add --no-cache \
-  libheif-dev
+  libheif-dev vips-dev make sqlite-dev build-base
 
 
 # All deps stage
@@ -14,7 +14,7 @@ RUN npm ci
 FROM base AS production-deps
 WORKDIR /app
 ADD package.json package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev --foreground-scripts --build-from-source
 
 # Build stage
 FROM base AS build
