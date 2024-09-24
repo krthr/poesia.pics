@@ -34,4 +34,6 @@ export default await Env.create(new URL('../', import.meta.url), {
   */
   DRIVE_DISK: Env.schema.enum(['fs'] as const),
   DRIVE_FS_LOCATION: Env.schema.string.optional(),
+
+  DATABASE_PATH: Env.schema.string.optional(),
 })
