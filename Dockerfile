@@ -1,7 +1,9 @@
-FROM node:20.15-alpine AS base
+FROM node:22-alpine3.18 AS base
 
 RUN apk add --no-cache \
   libheif-dev vips-dev make sqlite-dev build-base
+
+ENV SHARP_FORCE_GLOBAL_LIBVIPS=1
 
 
 # All deps stage
@@ -14,7 +16,7 @@ RUN npm ci
 FROM base AS production-deps
 WORKDIR /app
 ADD package.json package-lock.json ./
-RUN npm ci --omit=dev --foreground-scripts --build-from-source
+RUN npm ci --omit=dev --foreground-scripts --build-from-source --os=linux --arch=arm64 --libc=musl
 
 # Build stage
 FROM base AS build
