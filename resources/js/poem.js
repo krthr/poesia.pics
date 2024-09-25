@@ -163,7 +163,7 @@ window.onload = () => {
     await generateAndDownloadImage(title)
 
     window.gtag && window.gtag('event', 'download_image')
-    window.LogRocket && window.LogRocket.track('download_image')
+    window.posthog && window.posthog.capture('download_image')
 
     bownloadBtn.removeAttribute('disabled')
     bownloadBtn.classList.remove('loading')
@@ -178,7 +178,7 @@ window.onload = () => {
       await share()
 
       window.gtag && window.gtag('event', 'share_native')
-      window.LogRocket && window.LogRocket.track('share_native')
+      window.posthog && window.posthog.capture('share_native')
     }
 
     shareBtn.classList.remove('hidden')
