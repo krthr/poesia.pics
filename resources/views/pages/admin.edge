@@ -2,60 +2,77 @@
 
 <div class="w-full">
   <div class="max-w-6xl mx-auto">
-    <div class="card card-bordered">
-      <table class="table">
+    <div class="card card-bordered ">
 
-        <thead>
-          <tr>
-            <th>
-              ID
-            </th>
-            <th width="200px">
-              Imagen
-            </th>
-            <th>
-              Título
-            </th>
-            <th>
-              Emoción
-            </th>
-            <th>
-              Poema
-            </th>
+      <div class="card-body">
+        <h1 class="card-title">
+          Poemas ({{ poems.length }})
+        </h1>
 
-          </tr>
-        </thead>
+        <table class="table">
 
-        <tbody>
-          @each(poem in poems)
+          <thead>
             <tr>
               <th>
-                <a href="/{{ poem.id }}" target="_blank">
-                  {{ poem.id }}
-                </a>
+                ID
               </th>
-              <td>
-                <img src="{{ await driveUrl(poem.imagePath) }}" class="rounded w-[200px]" width="200px" />
-              </td>
-              <td>
-                {{ poem.title }}
-              </td>
-              <td>
-                {{ poem.mood }}
-              </td>
-              <td>
-                {{ truncate(poem.poem, 500) }}
-              </td>
-              <td>
-                {{ poem.createdAt.setLocale('es-CO').toLocaleString({  }) }}
-              </td>
+              <th width="200px" class="w-[200px]">
+                Imagen
+              </th>
+              <th>
+                Poema
+              </th>
             </tr>
-          @end
-        </tbody>
+          </thead>
 
-      </table>
+          <tbody>
+            @each(poem in poems)
+              <tr>
+                <th>
+                  <a href="/{{ poem.id }}" target="_blank">
+                    {{ poem.id }}
+                  </a>
+                </th>
+                <td>
+                  <img
+                    src="{{ await driveUrl(poem.imagePath) }}"
+                    class="block rounded w-[200px] h-[200px] aspect-square object-cover"
+                    width="200px"
+                    height="200px"
+                  />
+                </td>
+                <td>
+                  <div>
+                    <h2 class="font-bold text-lg">
+                      {{ poem.title }}
+                    </h2>
+                    <h3 class="font-medium">
+                      {{ poem.mood }}
+                    </h3>
 
-      {{--  {{ inspect(poems) }}  --}}
+                    <div class="mt-2">
+                      {{ poem.createdAt.setLocale('es-CO').toLocaleString({  }) }}
+                    </div>
+
+                    <p class="mt-5 text-sm">
+                      {{ truncate(poem.poem, 500) }}
+                    </p>
+
+                  </div>
+
+                </td>
+
+                <td>
+
+                </td>
+
+              </tr>
+            @end
+          </tbody>
+
+        </table>
+      </div>
+
     </div>
 
   </div>
