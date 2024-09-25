@@ -43,22 +43,24 @@
       {{ title || 'Convierte tus fotografías en poesía' }} - poesia.pics
     </title>
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K80PMDDGSD">
-      
-    </script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      
-      gtag("js", new Date());
-      
-      gtag("config", "G-K80PMDDGSD");
-    </script>
-
+    @if(app.isProd)
+      <!-- Google tag (gtag.js) -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-K80PMDDGSD">
+        
+      </script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        
+        gtag("js", new Date());
+        
+        gtag("config", "G-K80PMDDGSD");
+      </script>
+    @end
+    
     @vite(['resources/js/app.js'])
 
     @if ($slots.meta)
@@ -82,12 +84,14 @@
       {{{ await $slots.scripts() }}}
     @end
       
-    <script src="https://cdn.lr-ingest.com/LogRocket.min.js" crossorigin="anonymous">
-      
-    </script>
-    <script>
-      window.location.host === "poesia.pics" && window.LogRocket && window.LogRocket.init("poesiapics/poesiapics");
-      // window.uid && window.LogRocket && window.LogRocket.identify(window.uid)
-    </script>
+    
+    @if(app.isProd)
+      <script src="https://cdn.lr-ingest.com/LogRocket.min.js" crossorigin="anonymous">
+        
+      </script>
+      <script>
+        window.location.host === "poesia.pics" && window.LogRocket && window.LogRocket.init("poesiapics/poesiapics");
+      </script>
+    @end
   </body>
 </html>
