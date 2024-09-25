@@ -5,6 +5,16 @@
   description: truncate(poem.poem, 160),
   image: 'https://poesia.pics' + image
 })
+  @slot('meta')
+    <script>
+      window.poem = {
+        title: "{{ poem.title }}",
+        poem: `{{ poem.poem }}`,
+        url: "{{ request.completeUrl() }}"
+      };
+    </script>
+  @end
+  
   <div class="w-full">
     <div id="poem">
       <img
@@ -48,8 +58,10 @@
         <span class="font-bold">#PoesiaPics</span>
       </h2>
 
+      @!poem.share({ device, poem })
+
       <div>
-        <button class="btn btn-ghost btn-outline gap-2" id="download-poem">
+        <button class="btn btn-primary gap-2" id="download-poem">
           <iconify-icon icon="ph:download" width="25">
           </iconify-icon>
           Descargar poema
