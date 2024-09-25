@@ -58,10 +58,32 @@ window.onload = () => {
 
     await generateAndDownloadImage(poem, title)
 
-    window.gtag && window.gtag('event', 'share')
-    window.LogRocket && window.LogRocket.track('share')
+    window.gtag && window.gtag('event', 'download_image')
+    window.LogRocket && window.LogRocket.track('download_image')
 
     bownloadBtn.removeAttribute('disabled')
     bownloadBtn.classList.remove('loading')
+  }
+
+  const shareBtn = document.querySelector('#share-btn')
+
+  if ('share' in navigator) {
+    console.log('Can share!')
+
+    shareBtn.onclick = async () => {
+      const payload = {
+        title: window.poem.title,
+        text: window.poem.poem,
+        url: window.poem.url,
+      }
+
+      console.log('Sharing', payload)
+      await navigator.share(payload)
+
+      window.gtag && window.gtag('event', 'share_native')
+      window.LogRocket && window.LogRocket.track('share_native')
+    }
+
+    shareBtn.classList.remove('hidden')
   }
 }

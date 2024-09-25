@@ -3,9 +3,8 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { inject } from '@adonisjs/core'
 
 import Poem from '#models/poem'
-import { poemStoreValidator } from '#validators/poem_store'
-
 import PoemService from '#services/poem_service'
+import { poemStoreValidator } from '#validators/poem_store'
 
 export default class PoemsController {
   /**
