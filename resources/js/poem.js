@@ -6,7 +6,11 @@ const SAFARI = /safari|applewebkit/i
 
 async function createFile() {
   try {
-    const response = await fetch(new URL(poem.imagePath, window.location.origin))
+    const url = new URL(poem.imagePath, window.location.origin)
+
+    console.log('downloading image', url)
+
+    const response = await fetch(url)
     const data = await response.blob()
 
     const metadata = {
@@ -57,6 +61,7 @@ async function shareWithImage(payload) {
     const canShare = navigator.canShare(payloadWithImage)
 
     if (canShare) {
+      console.log('sharing with image', payloadWithImage)
       const result = await nativeShare(payloadWithImage)
       return result
     }
