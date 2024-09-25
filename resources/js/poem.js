@@ -4,6 +4,84 @@ const IOS = /iPad|iPhone|iPod/
 const MACOS = /Mac OS X/
 const SAFARI = /safari|applewebkit/i
 
+async function createFile() {
+  try {
+    const response = await fetch(new URL(poem.imagePath, window.location.origin))
+    const data = await response.blob()
+
+    const metadata = {
+      type: 'image/jpeg',
+    }
+
+    const file = new File([data], 'poem.jpg', metadata)
+    return file
+  } catch (error) {}
+}
+
+/**
+ *
+ * @param {ShareData} data
+ */
+async function nativeShare(data) {
+  console.log('nativeShare', data)
+
+  try {
+    await navigator.share(data)
+    return true
+  } catch (error) {
+    console.error(error)
+  }
+
+  return false
+}
+
+/**
+ *
+ * @param {ShareData} payload
+ * @returns
+ */
+async function shareWithImage(payload) {
+  console.log('shareWithImage', payload)
+
+  if ('canShare' in navigator) {
+    const image = await createFile()
+
+    if (!image) {
+      return false
+    }
+
+    const payloadWithImage = {
+      ...payload,
+      files: [image],
+    }
+    const canShare = navigator.canShare(payloadWithImage)
+
+    if (canShare) {
+      const result = await nativeShare(payloadWithImage)
+      return result
+    }
+  }
+
+  return false
+}
+
+async function share() {
+  const payload = {
+    title: window.poem.title,
+    text: window.poem.poem,
+    url: window.poem.url,
+  }
+
+  console.log('sharing', payload)
+
+  const sharedWithImage = await shareWithImage(payload)
+  if (sharedWithImage) {
+    return
+  }
+
+  await nativeShare(payload)
+}
+
 /**
  *
  * @param {HTMLElement} node
@@ -71,14 +149,7 @@ window.onload = () => {
     console.log('Can share!')
 
     shareBtn.onclick = async () => {
-      const payload = {
-        title: window.poem.title,
-        text: window.poem.poem,
-        url: window.poem.url,
-      }
-
-      console.log('Sharing', payload)
-      await navigator.share(payload)
+      await share()
 
       window.gtag && window.gtag('event', 'share_native')
       window.LogRocket && window.LogRocket.track('share_native')
