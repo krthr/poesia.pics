@@ -8,13 +8,7 @@ import {
   timestamp,
   numeric,
 } from "drizzle-orm/pg-core";
-import { customAlphabet } from "nanoid";
-
-export const nanoid = (size = 10) => {
-  const alphabet =
-    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  return customAlphabet(alphabet)(size);
-};
+import { nanoid } from "nanoid";
 
 export const poems = pgTable("poems", {
   id: text()
