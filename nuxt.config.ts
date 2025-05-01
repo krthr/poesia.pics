@@ -1,6 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 console.log("dirs", process.env.NITRO_STORAGE_BASE, process.env.IMAGE_DIR);
 
+const ipxDir = process.env.NODE_ENV === "production" ? "/app/storage" : "./tmp";
+
+console.log({ ipxDir });
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
@@ -30,11 +34,7 @@ export default defineNuxtConfig({
   image: {
     format: ["webp", "jpeg", "jpg"],
     provider: "ipx",
-    ipx: {
-      fs: {
-        dir: process.env.IMAGE_DIR,
-      },
-    },
+    ipx: { fs: { dir: ipxDir } },
   },
 
   ui: {

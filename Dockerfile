@@ -24,7 +24,7 @@ RUN npm ci --foreground-scripts --build-from-source --os=linux --arch=arm64 --li
 FROM base AS build
 ARG NUXT_UI_PRO_LICENSE
 ARG NITRO_STORAGE_BASE
-ARG IMAGE_DIR
+ARG NODE_ENV
 WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 ADD . .
