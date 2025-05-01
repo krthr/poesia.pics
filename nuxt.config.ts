@@ -28,4 +28,8 @@ export default defineNuxtConfig({
     dir: "./tmp",
     format: ["webp", "jpeg", "jpg"],
   },
+
+  ui: {
+    colorMode: false,
+  },
 });
