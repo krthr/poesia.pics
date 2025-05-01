@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+console.log("dirs", process.env.NITRO_STORAGE_BASE, process.env.IMAGE_DIR);
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
