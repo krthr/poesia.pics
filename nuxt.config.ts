@@ -11,10 +11,7 @@ export default defineNuxtConfig({
 
   nitro: {
     storage: {
-      disk: {
-        driver: "fs-lite",
-        base: "./tmp",
-      },
+      disk: { driver: "fs-lite", base: process.env.STORAGE_FOLDER },
     },
 
     timing: true,
@@ -28,10 +25,7 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
-  image: {
-    dir: "./tmp",
-    format: ["webp", "jpeg", "jpg"],
-  },
+  image: { dir: process.env.STORAGE_FOLDER, format: ["webp", "jpeg", "jpg"] },
 
   ui: {
     colorMode: false,
