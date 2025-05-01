@@ -43,6 +43,8 @@ export async function useGeneratePoem(
     return completionResult;
   }
 
+  logger.info(context, "saving poem");
+
   const completion = completionResult.value;
   await db.insert(poems).values({
     mood,
