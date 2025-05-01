@@ -25,9 +25,13 @@ export const poems = pgTable("poems", {
   imagePath: text().notNull(),
   imageWidth: integer(),
   imageHeight: integer(),
-  imageRatio: numeric().generatedAlwaysAs(
+  imageRatio: numeric({ mode: "number" }).generatedAlwaysAs(
     (): SQL =>
-      sql`nullif(${poems.imageWidth}, 0) / nullif(${poems.imageHeight}, 0)`
+      sql`case 
+        when ${poems.imageWidth} is not null and ${poems.imageHeight} is not null then
+          (${poems.imageWidth}::float / ${poems.imageHeight}::float)
+        else null end
+      `
   ),
   imagePreview: text(),
 

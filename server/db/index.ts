@@ -1,10 +1,10 @@
 import { drizzle } from "drizzle-orm/postgres-js";
 import * as schema from "./schema";
 
+const runtimeConfig = useRuntimeConfig();
+
 export const db = drizzle({
   casing: "snake_case",
-  connection: {
-    url: process.env.DATABASE_URL!,
-  },
+  connection: { url: runtimeConfig.databaseUrl },
   schema,
 });
