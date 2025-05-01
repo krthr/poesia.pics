@@ -1,5 +1,7 @@
+import type { H3Error } from "h3";
 import { err } from "neverthrow";
 
+export type ErrorObject = H3Error<{ type: ErrorType; cause?: unknown }>;
 export type ErrorType =
   | "INVALID_IMAGE"
   | "PROCESSING_FAILED"

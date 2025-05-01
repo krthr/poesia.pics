@@ -1,5 +1,6 @@
 import type { Err, Ok } from "neverthrow";
-import type { H3Error, MultiPartData } from "h3";
+import type { ErrorObject } from "../utils/errors";
+import type { MultiPartData } from "h3";
 
 import Sharp from "sharp";
 import path from "node:path";
@@ -50,7 +51,7 @@ export function useImageService(context: { id: string; filename?: string }) {
 
   async function processAndStoreImage(
     image: MultiPartData
-  ): Promise<Ok<ImageResult, never> | Err<never, H3Error>> {
+  ): Promise<Ok<ImageResult, never> | Err<never, ErrorObject>> {
     logger.info(context, "processing image");
 
     if (!image.data) {
