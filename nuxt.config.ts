@@ -12,6 +12,9 @@ export default defineNuxtConfig({
         base: "./tmp",
       },
     },
+
+    timing: true,
+    compressPublicAssets: true,
   },
 
   runtimeConfig: {

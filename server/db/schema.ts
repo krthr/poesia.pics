@@ -36,7 +36,6 @@ export const poems = pgTable("poems", {
   imagePreview: text(),
 
   metadata: json().default({}).$type<{ prompt: string; model: string }>(),
-
   createdAt: timestamp().defaultNow(),
   updatedAt: timestamp().defaultNow(),
 });

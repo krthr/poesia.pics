@@ -14,35 +14,102 @@ if (error.value) {
       <UPageSection
         :title="data?.title"
         :ui="{
+          container: 'py-2 sm:py-4 lg:py-8',
           title: 'font-serif italic',
-          description: 'whitespace-pre-wrap font-serif',
           wrapper: 'order-last',
         }"
         orientation="horizontal"
       >
         <div class="w-full h-full flex justify-start lg:justify-end">
-          <NuxtImg
-            :src="data?.imagePath!"
-            :placeholder="data?.imagePreview!"
-            class="rounded-md"
-            format="auto"
-            :style="{ aspectRatio: data?.imageRatio }"
-          />
+          <div class="w-full">
+            <NuxtImg
+              :placeholder="data?.imagePreview!"
+              class="rounded-md w-full"
+              format="auto"
+              :src="data?.imagePath"
+              :style="{ aspectRatio: data?.imageRatio }"
+              width="100%"
+            />
+          </div>
         </div>
 
         <template #description>
-          <p>
+          <p class="whitespace-pre-wrap font-serif">
             {{ data?.poem }}
           </p>
 
+          <UBadge class="mt-4" color="neutral" variant="soft">
+            {{ data?.mood }}
+          </UBadge>
+
           <USeparator
-            class="mt-6"
+            class="my-6 font-serif italic"
             label="poesia.pics"
             orientation="horizontal"
             type="dashed"
           />
+
+          <div>
+            <UAlert
+              icon="ph:clock"
+              :description="`Tu poema será eliminado en ${data?.remainingHours} horas`"
+              color="warning"
+              variant="soft"
+            />
+          </div>
+
+          <!-- <UPageLogos
+            title="Comparte tu poema usando el hashtag #PoesiaPics"
+            :ui="{ logos: 'justify-center' }"
+          >
+            <UButton
+              icon="ph:x-logo"
+              variant="ghost"
+              color="neutral"
+              size="xl"
+            />
+            <UButton
+              icon="ph:facebook-logo"
+              variant="ghost"
+              color="neutral"
+              size="xl"
+            />
+            <UButton
+              icon="ph:whatsapp-logo"
+              variant="ghost"
+              color="neutral"
+              size="xl"
+            />
+          </UPageLogos> -->
         </template>
       </UPageSection>
+
+      <UPageLogos
+        title="Comparte tu poema usando el hashtag #PoesiaPics"
+        :ui="{ logos: 'justify-center gap-4' }"
+      >
+        <UButton icon="ph:x-logo" variant="ghost" color="neutral" size="xl" />
+        <UButton
+          icon="ph:facebook-logo"
+          variant="ghost"
+          color="neutral"
+          size="xl"
+        />
+        <UButton
+          icon="ph:whatsapp-logo"
+          variant="ghost"
+          color="neutral"
+          size="xl"
+        />
+
+        <UButton
+          label="Compartir"
+          icon="ph:share"
+          variant="ghost"
+          color="neutral"
+          size="xl"
+        />
+      </UPageLogos>
     </UPageBody>
   </UPage>
 </template>
