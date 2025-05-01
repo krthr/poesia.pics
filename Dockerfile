@@ -23,7 +23,8 @@ RUN npm ci --foreground-scripts --build-from-source --os=linux --arch=arm64 --li
 # Build stage
 FROM base AS build
 ARG NUXT_UI_PRO_LICENSE
-ARG STORAGE_FOLDER
+ARG NITRO_STORAGE_BASE
+ARG IMAGE_DIR
 WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 ADD . .
