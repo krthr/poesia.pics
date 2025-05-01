@@ -1,28 +1,38 @@
 import type { Err, Ok } from "neverthrow";
-import type { ImageProcessingError } from "../errors";
-import type { MultiPartData } from "h3";
+import type { H3Error, MultiPartData } from "h3";
 
 import Sharp from "sharp";
 import path from "node:path";
-import { useLogger } from "../utils/logger";
 import { ok, fromPromise } from "neverthrow";
-import { imageError } from "../errors";
+import { buildError } from "../utils/errors";
 
 const IMAGES_FOLDER = "images";
 const IMAGES_WIDTH = 800;
 
-const bufferToBase64 = (buff: Buffer) =>
-  `data:image/jpeg;base64,${buff.toString("base64")}`;
+const bufferToBase64 = (
+  buff: Buffer,
+  buildUri = true,
+  mimeType = "image/jpeg"
+) => {
+  let parts = [buff.toString("base64")];
+
+  if (buildUri) {
+    parts = [`data:${mimeType};base64`, ...parts];
+  }
+
+  return parts.join(",");
+};
 
 export type ImageResult = {
   imagePath: string;
   imagePreview?: string;
   imageWidth: number;
   imageHeight?: number;
+  imageBase64: string;
 };
 
 export function useImageService(context: { id: string; filename?: string }) {
-  const logger = useLogger("services.images");
+  const logger = useLogger("useImageService");
 
   async function generateThumbnail(sharp: Sharp.Sharp) {
     try {
@@ -40,11 +50,11 @@ export function useImageService(context: { id: string; filename?: string }) {
 
   async function processAndStoreImage(
     image: MultiPartData
-  ): Promise<Ok<ImageResult, never> | Err<never, ImageProcessingError>> {
+  ): Promise<Ok<ImageResult, never> | Err<never, H3Error>> {
     logger.info(context, "processing image");
 
     if (!image.data) {
-      return imageError("INVALID_IMAGE")();
+      return buildError("INVALID_IMAGE")();
     }
 
     const imageWidth = IMAGES_WIDTH;
@@ -52,7 +62,7 @@ export function useImageService(context: { id: string; filename?: string }) {
 
     const imageBufferResult = await fromPromise(
       sharp.toBuffer(),
-      imageError("INVALID_IMAGE")
+      buildError("INVALID_IMAGE")
     );
 
     if (imageBufferResult.isErr()) {
@@ -60,6 +70,8 @@ export function useImageService(context: { id: string; filename?: string }) {
     }
 
     const imageBuffer = imageBufferResult.value;
+    const imageBase64 = bufferToBase64(imageBuffer);
+
     const imagePreview = await generateThumbnail(sharp);
 
     const metadataResult = await fromPromise(
@@ -75,7 +87,7 @@ export function useImageService(context: { id: string; filename?: string }) {
 
     const uploadResult = await fromPromise(
       useStorage("disk").setItemRaw(imagePath, imageBuffer),
-      imageError("STORAGE_FAILED")
+      buildError("STORAGE_FAILED")
     );
 
     if (uploadResult.isErr()) {
@@ -87,6 +99,7 @@ export function useImageService(context: { id: string; filename?: string }) {
       imagePreview,
       imageHeight,
       imageWidth,
+      imageBase64,
     });
   }
 
