@@ -5,6 +5,6 @@ const runtimeConfig = useRuntimeConfig();
 
 export const db = drizzle({
   casing: "snake_case",
-  connection: { url: runtimeConfig.databaseUrl },
+  connection: { url: runtimeConfig.databaseUrl, prepare: false },
   schema,
 });
