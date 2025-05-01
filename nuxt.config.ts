@@ -27,7 +27,15 @@ export default defineNuxtConfig({
 
   css: ["~/assets/css/main.css"],
 
-  image: { dir: process.env.IMAGE_DIR, format: ["webp", "jpeg", "jpg"] },
+  image: {
+    format: ["webp", "jpeg", "jpg"],
+    provider: "ipx",
+    ipx: {
+      fs: {
+        dir: process.env.IMAGE_DIR,
+      },
+    },
+  },
 
   ui: {
     colorMode: false,
