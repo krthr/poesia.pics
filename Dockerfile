@@ -8,13 +8,13 @@ RUN apk add python3 build-base samurai meson \
   orc-dev pango-dev poppler-dev libspng-dev tiff-dev zlib-dev libjxl-dev \
   --no-cache
 
-RUN apk add vips vips-dev vips-heif --no-cache
+# RUN apk add vips vips-dev vips-heif --no-cache
 
-# RUN wget https://github.com/libvips/libvips/releases/download/v8.16.1/vips-8.16.1.tar.xz \
-#   && tar xf vips-8.16.1.tar.xz \
-#   && cd vips-8.16.1 \
-#   && meson setup build \
-#   && cd build && meson compile && meson test && meson install
+RUN wget https://github.com/libvips/libvips/releases/download/v8.16.1/vips-8.16.1.tar.xz \
+  && tar xf vips-8.16.1.tar.xz \
+  && cd vips-8.16.1 \
+  && meson setup build \
+  && cd build && meson compile && meson test && meson install
 
 
 # All deps stage
