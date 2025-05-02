@@ -36,6 +36,7 @@ RUN npm run build
 FROM base
 ENV NODE_ENV=production
 WORKDIR /app
+COPY --from=deps /app/node_modules ./
 COPY --from=build /app/.output/ ./
 EXPOSE 8080
 CMD ["node", "/app/server/index.mjs"]
