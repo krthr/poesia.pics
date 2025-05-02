@@ -65,8 +65,18 @@ async function onFileChange(event: Event) {
   <UPage>
     <UPageHero
       description="Con Inteligencia Artificial convertimos tus fotografías en poemas."
-      headline="¡Nueva versión!"
     >
+      <template #headline>
+        <a
+          class="font-semibold text-primary"
+          href="https://krthr.co/poesiapics-que-hay-de-nuevo"
+          target="_blank"
+          referrerpolicy="unsafe-url"
+        >
+          ¡Nueva versión! Leer anuncio
+        </a>
+      </template>
+
       <template #title>
         Tus imágenes se <br />
         vuelven <span class="italic font-serif">poesía</span>
