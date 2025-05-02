@@ -3,13 +3,11 @@ import type { InputMenuItem } from "@nuxt/ui";
 
 import { MOODS_LIST } from "~/server/constants/moods";
 
-defineOgImageComponent("NuxtSeo", {
-  title: "poesia.pics 💖",
+defineOgImageComponent("Frame", {
+  title: "💖 poesia.pics",
   description:
     "Transforma tus fotografías en hermosos poemas utilizando Inteligencia Artificial. Sube una imagen y descubre la poesía que esconde.",
-  theme: "#ff2056",
-  icon: "ph:heart-fill",
-  siteName: "poesia.pics",
+  bg: "linear-gradient(to bottom right, #ff637e, #c70036)",
 });
 
 const toast = useToast();
