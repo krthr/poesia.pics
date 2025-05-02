@@ -1,111 +1,117 @@
 {
-  "id": "dd97fc7a-4005-49a4-b4ba-ee0b56c1f0e3",
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "ed53d7f0-198a-4b2b-9fb4-97715b54b415",
   "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "7",
-  "dialect": "postgresql",
   "tables": {
-    "public.poems": {
+    "poems": {
       "name": "poems",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
           "type": "text",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "title": {
           "name": "title",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "poem": {
           "name": "poem",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "mood": {
           "name": "mood",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "image_path": {
           "name": "image_path",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "image_width": {
           "name": "image_width",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "image_height": {
           "name": "image_height",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "image_ratio": {
           "name": "image_ratio",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false,
+          "autoincrement": false,
           "generated": {
-            "as": "nullif(\"poems\".\"image_width\", 0) / nullif(\"poems\".\"image_height\", 0)",
-            "type": "stored"
+            "as": "(case \n        when \"image_width\" is not null and \"image_height\" is not null then\n          (\"image_width\" * 1.0) / (\"image_height\" * 1.0)\n        else null end\n      )",
+            "type": "virtual"
           }
         },
         "image_preview": {
           "name": "image_preview",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "metadata": {
           "name": "metadata",
-          "type": "json",
+          "type": "text",
           "primaryKey": false,
           "notNull": false,
-          "default": "'{}'::json"
+          "autoincrement": false,
+          "default": "'{}'"
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "default": "now()"
+          "autoincrement": false
         },
         "updated_at": {
           "name": "updated_at",
-          "type": "timestamp",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "default": "now()"
+          "autoincrement": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     }
   },
-  "enums": {},
-  "schemas": {},
-  "sequences": {},
-  "roles": {},
-  "policies": {},
   "views": {},
+  "enums": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
   }
 }

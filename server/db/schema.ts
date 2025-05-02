@@ -1,16 +1,9 @@
 import type { SQL } from "drizzle-orm";
 import { sql } from "drizzle-orm";
-import {
-  integer,
-  json,
-  pgTable,
-  text,
-  timestamp,
-  numeric,
-} from "drizzle-orm/pg-core";
+import { sqliteTable, text, numeric, integer } from "drizzle-orm/sqlite-core";
 import { nanoid } from "nanoid";
 
-export const poems = pgTable("poems", {
+export const poems = sqliteTable("poems", {
   id: text()
     .primaryKey()
     .$defaultFn(() => nanoid(10))
@@ -29,13 +22,15 @@ export const poems = pgTable("poems", {
     (): SQL =>
       sql`case 
         when ${poems.imageWidth} is not null and ${poems.imageHeight} is not null then
-          (${poems.imageWidth}::float / ${poems.imageHeight}::float)
+          (${poems.imageWidth} * 1.0) / (${poems.imageHeight} * 1.0)
         else null end
       `
   ),
   imagePreview: text(),
 
-  metadata: json().default({}).$type<{ prompt: string; model: string }>(),
-  createdAt: timestamp().defaultNow(),
-  updatedAt: timestamp().defaultNow(),
+  metadata: text({ mode: "json" })
+    .default({})
+    .$type<{ prompt: string; model: string }>(),
+  createdAt: integer({ mode: "timestamp" }).$defaultFn(() => new Date()),
+  updatedAt: integer({ mode: "timestamp" }).$defaultFn(() => new Date()),
 });

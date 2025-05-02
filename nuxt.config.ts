@@ -26,7 +26,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     openaiApiKey: "",
-    databaseUrl: "",
+    dbFilePath: "./tmp/db.sqlite",
   },
 
   css: ["~/assets/css/main.css"],
