@@ -7,6 +7,7 @@ RUN apk add python3 build-base samurai meson \
   libpng-dev librsvg-dev libwebp-dev meson openexr-dev openjpeg-dev \ 
   orc-dev pango-dev poppler-dev libspng-dev tiff-dev zlib-dev libjxl-dev \
   aom aom-dev \
+  vips-dev vips-heif vips-tools \
   --no-cache
 
 # RUN apk add vips vips-dev vips-heif vips-tools --no-cache
