@@ -32,5 +32,8 @@
   "devDependencies": {
     "drizzle-kit": "^0.31.0",
     "tsx": "^4.19.4"
+  },
+  "optionalDependencies": {
+    "@libsql/linux-arm64-musl": "*"
   }
 }
