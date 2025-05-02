@@ -14,7 +14,7 @@ FROM node:22-alpine AS base
 #   && meson setup build \
 #   && cd build && meson compile && meson test && meson install
 
-RUN apk add --no-cache vips vips-dev
+# RUN apk add --no-cache vips vips-dev
 
 # All deps stage
 FROM base AS deps
