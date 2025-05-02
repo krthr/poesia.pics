@@ -4,11 +4,12 @@ import { promisify } from "node:util";
 const execPromise = promisify(exec);
 
 export default defineNitroPlugin(async () => {
+  const logger = useLogger("plugins.migrations");
+
   if (process.env.NODE_ENV !== "production") {
+    logger.info("skipping migration");
     return;
   }
-
-  const logger = useLogger("plugins.migrations");
 
   logger.info("running migrations");
 
