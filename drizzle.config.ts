@@ -1,9 +1,5 @@
 import { defineConfig } from "drizzle-kit";
-
-export const DB_FILE_PATH =
-  process.env.NODE_ENV === "production"
-    ? "file:/app/db/db.sqlite"
-    : "file:./tmp/db.sqlite";
+import { DB_FILE_PATH } from "./constants";
 
 export default defineConfig({
   out: "./drizzle",

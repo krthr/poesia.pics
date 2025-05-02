@@ -1,11 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import { DB_FILE_PATH } from "./drizzle.config";
-
-export const STORAGE_FOLDER =
-  process.env.NODE_ENV === "production" ? "/app/storage" : "./tmp";
-
-console.log({ STORAGE_FOLDER });
+import { DB_FILE_PATH, STORAGE_FOLDER } from "./constants";
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
@@ -36,8 +31,14 @@ export default defineNuxtConfig({
 
   image: {
     format: ["webp", "jpeg", "jpg"],
-    dir: STORAGE_FOLDER,
     provider: "ipx",
+
+    ipx: {
+      baseURL: "/images",
+      fs: {
+        dir: [STORAGE_FOLDER],
+      },
+    },
   },
 
   ui: {
