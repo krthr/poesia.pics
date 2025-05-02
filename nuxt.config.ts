@@ -34,8 +34,7 @@ export default defineNuxtConfig({
 
   image: {
     format: ["webp", "jpeg", "jpg"],
-    provider: "ipx",
-    ipx: { fs: { dir: STORAGE_FOLDER } },
+    dir: STORAGE_FOLDER,
   },
 
   ui: {
