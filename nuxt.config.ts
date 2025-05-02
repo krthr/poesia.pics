@@ -7,9 +7,23 @@ export default defineNuxtConfig({
 
   app: {
     pageTransition: { name: "page", mode: "out-in" },
+
+    head: {
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+      htmlAttrs: { lang: "es" },
+    },
   },
 
-  modules: ["@nuxt/eslint", "@nuxt/scripts", "@nuxt/ui-pro", "@nuxt/image"],
+  modules: [
+    "@nuxt/eslint",
+    "@nuxt/scripts",
+    "@nuxt/ui-pro",
+    "@nuxt/image",
+    "@nuxtjs/sitemap",
+    "@nuxtjs/robots",
+    "nuxt-og-image",
+  ],
 
   nitro: {
     storage: {
@@ -23,6 +37,9 @@ export default defineNuxtConfig({
   runtimeConfig: {
     openaiApiKey: "",
     dbFilePath: process.env.NUXT_DB_FILE_PATH,
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://poesia.pics",
+    },
   },
 
   css: ["~/assets/css/main.css"],
@@ -40,5 +57,15 @@ export default defineNuxtConfig({
 
   ui: {
     colorMode: false,
+  },
+
+  site: {
+    url: "https://poesia.pics",
+    name: "Poesia.pics",
+  },
+
+  robots: {
+    blockNonSeoBots: true,
+    blockAiBots: true,
   },
 });
