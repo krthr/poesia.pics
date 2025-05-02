@@ -9,28 +9,6 @@ import { MOODS_LIST } from "~/server/constants/moods";
 //     "Poesia.pics transforma tus fotografías en hermosos poemas utilizando Inteligencia Artificial. Sube una imagen y descubre la poesía que esconde.",
 // });
 
-// SEO Configuration
-// useHead({
-//   title: "Poesia.pics - Convierte tus imágenes en poemas con IA",
-//   titleTemplate: "%s | Poesia.pics",
-//   link: [{ rel: "canonical", href: "https://poesia.pics" }],
-// });
-
-// useSeoMeta({
-//   description:
-//     "Poesia.pics transforma tus fotografías en hermosos poemas utilizando Inteligencia Artificial. Sube una imagen y descubre la poesía que esconde.",
-//   ogTitle: "Poesia.pics - Convierte tus imágenes en poemas con IA",
-//   ogDescription:
-//     "Transforma tus fotografías en hermosos poemas utilizando Inteligencia Artificial.",
-//   ogImage: "/og-image.jpg",
-//   ogUrl: "https://poesia.pics",
-//   ogType: "website",
-//   twitterCard: "summary_large_image",
-//   twitterTitle: "Poesia.pics - Convierte tus imágenes en poemas con IA",
-//   twitterDescription:
-//     "Transforma tus fotografías en hermosos poemas utilizando Inteligencia Artificial.",
-// });
-
 const toast = useToast();
 const imageInput = ref<HTMLInputElement | null>(null);
 
