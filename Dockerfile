@@ -1,6 +1,8 @@
 FROM node:22-alpine AS base
 
-# RUN apk add python3 build-base samurai meson \
+RUN apk add python3 build-base samurai meson \
+  vips vips-dev vips-heif --no-cache
+
 #   build-base cfitsio-dev cgif-dev expat-dev fftw-dev giflib-dev \
 #   glib-dev gobject-introspection-dev imagemagick-dev lcms2-dev \ 
 #   libexif-dev libheif-dev libimagequant-dev libjpeg-turbo-dev \
@@ -14,7 +16,6 @@ FROM node:22-alpine AS base
 #   && meson setup build \
 #   && cd build && meson compile && meson test && meson install
 
-RUN apk add vips vips-dev vips-heif --no-cache
 
 # All deps stage
 FROM base AS deps
