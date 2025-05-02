@@ -1,9 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-console.log("dirs", process.env.NITRO_STORAGE_BASE, process.env.IMAGE_DIR);
 
-const ipxDir = process.env.NODE_ENV === "production" ? "/app/storage" : "./tmp";
+const STORAGE_FOLDER =
+  process.env.NODE_ENV === "production" ? "./public/uploads" : "./tmp";
 
-console.log({ ipxDir });
+const DB_FILE_PATH =
+  process.env.NODE_ENV === "production"
+    ? "file:/app/db.sqlite"
+    : "file:./tmp/db.sqlite";
+
+console.log({ STORAGE_FOLDER, DB_FILE_PATH });
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
@@ -17,7 +22,7 @@ export default defineNuxtConfig({
 
   nitro: {
     storage: {
-      disk: { driver: "fs-lite", base: process.env.NITRO_STORAGE_BASE },
+      disk: { driver: "fs-lite", base: STORAGE_FOLDER },
     },
 
     timing: true,
@@ -26,7 +31,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     openaiApiKey: "",
-    dbFilePath: "file:./tmp/db.sqlite",
+    dbFilePath: DB_FILE_PATH,
   },
 
   css: ["~/assets/css/main.css"],
@@ -34,7 +39,7 @@ export default defineNuxtConfig({
   image: {
     format: ["webp", "jpeg", "jpg"],
     provider: "ipx",
-    ipx: { fs: { dir: ipxDir } },
+    ipx: { fs: { dir: STORAGE_FOLDER } },
   },
 
   ui: {
