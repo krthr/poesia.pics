@@ -1,18 +1,20 @@
 FROM node:22-alpine AS base
 
-RUN apk add python3 build-base samurai meson \
-  build-base cfitsio-dev cgif-dev expat-dev fftw-dev giflib-dev \
-  glib-dev gobject-introspection-dev imagemagick-dev lcms2-dev \ 
-  libexif-dev libheif-dev libimagequant-dev libjpeg-turbo-dev \
-  libpng-dev librsvg-dev libwebp-dev meson openexr-dev openjpeg-dev \ 
-  orc-dev pango-dev poppler-dev libspng-dev tiff-dev zlib-dev libjxl-dev \
-  --no-cache
+# RUN apk add python3 build-base samurai meson \
+#   build-base cfitsio-dev cgif-dev expat-dev fftw-dev giflib-dev \
+#   glib-dev gobject-introspection-dev imagemagick-dev lcms2-dev \ 
+#   libexif-dev libheif-dev libimagequant-dev libjpeg-turbo-dev \
+#   libpng-dev librsvg-dev libwebp-dev meson openexr-dev openjpeg-dev \ 
+#   orc-dev pango-dev poppler-dev libspng-dev tiff-dev zlib-dev libjxl-dev \
+#   --no-cache
 
-RUN wget https://github.com/libvips/libvips/releases/download/v8.16.1/vips-8.16.1.tar.xz \
-  && tar xf vips-8.16.1.tar.xz \
-  && cd vips-8.16.1 \
-  && meson setup build \
-  && cd build && meson compile && meson test && meson install
+# RUN wget https://github.com/libvips/libvips/releases/download/v8.16.1/vips-8.16.1.tar.xz \
+#   && tar xf vips-8.16.1.tar.xz \
+#   && cd vips-8.16.1 \
+#   && meson setup build \
+#   && cd build && meson compile && meson test && meson install
+
+RUN apk add vips vips-dev vips-heif --no-cache
 
 # All deps stage
 FROM base AS deps
