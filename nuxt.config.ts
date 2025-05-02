@@ -3,7 +3,7 @@
 import { DB_FILE_PATH } from "./drizzle.config";
 
 export const STORAGE_FOLDER =
-  process.env.NODE_ENV === "production" ? "/app/public/uploads" : "./tmp";
+  process.env.NODE_ENV === "production" ? "public/uploads" : "./tmp";
 
 console.log({ STORAGE_FOLDER });
 
