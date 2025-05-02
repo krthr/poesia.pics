@@ -3,7 +3,7 @@
 import { DB_FILE_PATH } from "./drizzle.config";
 
 export const STORAGE_FOLDER =
-  process.env.NODE_ENV === "production" ? "public/uploads" : "./tmp";
+  process.env.NODE_ENV === "production" ? "/app/storage" : "./tmp";
 
 console.log({ STORAGE_FOLDER });
 
@@ -37,6 +37,7 @@ export default defineNuxtConfig({
   image: {
     format: ["webp", "jpeg", "jpg"],
     dir: STORAGE_FOLDER,
+    provider: "ipx",
   },
 
   ui: {
