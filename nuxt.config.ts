@@ -8,7 +8,11 @@ const DB_FILE_PATH =
     ? "file:/app/db/db.sqlite"
     : "file:./tmp/db.sqlite";
 
-console.log({ STORAGE_FOLDER, DB_FILE_PATH });
+console.log({
+  STORAGE_FOLDER,
+  DB_FILE_PATH,
+  NUXT_UI_PRO_LICENSE: process.env.NUXT_UI_PRO_LICENSE,
+});
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",

@@ -22,8 +22,8 @@ RUN npm ci --foreground-scripts --build-from-source --os=linux --arch=arm64 --li
 
 # Build stage
 FROM base AS build
-ARG NODE_ENV
 ARG NUXT_UI_PRO_LICENSE
+ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 ADD . .
