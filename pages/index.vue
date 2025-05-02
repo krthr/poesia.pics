@@ -111,7 +111,7 @@ async function onFileChange(event: Event) {
             ref="imageInput"
             name="image"
             type="file"
-            accept="image/jpg,image/png,image/webp,image/jpeg,image/heic,image/jfif"
+            accept="image/jpg,image/png,image/webp,image/jpeg,image/jfif"
             hidden
             required
             @change="onFileChange"
