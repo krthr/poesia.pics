@@ -18,7 +18,7 @@ RUN wget https://github.com/libvips/libvips/releases/download/v8.16.1/vips-8.16.
 FROM base AS deps
 WORKDIR /app
 ADD package.json package-lock.json ./
-RUN npm ci --foreground-scripts --build-from-source --os=linux --arch=arm64 --libc=musl
+RUN npm ci --include=optional --foreground-scripts --build-from-source --os=linux --arch=arm64 --libc=musl
 
 # Build stage
 FROM base AS build
