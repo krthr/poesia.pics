@@ -38,6 +38,6 @@ ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 COPY --from=build /app/.output/ ./
-COPY drizzle.config.ts ./
+COPY drizzle.config.ts drizzle/ ./
 EXPOSE 8080
 CMD ["npx", "drizzle-kit", "migrate", "&&", "node", "/app/server/index.mjs"]
