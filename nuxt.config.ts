@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import { DB_FILE_PATH, STORAGE_FOLDER } from "./constants";
+import { DB_FILE_PATH } from "./constants";
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
@@ -15,7 +15,7 @@ export default defineNuxtConfig({
 
   nitro: {
     storage: {
-      disk: { driver: "fs-lite", base: STORAGE_FOLDER },
+      disk: { driver: "fs-lite", base: process.env.NUXT_STORAGE_FOLDER },
     },
 
     timing: true,
@@ -36,7 +36,7 @@ export default defineNuxtConfig({
     ipx: {
       baseURL: "/images",
       fs: {
-        dir: [STORAGE_FOLDER],
+        dir: [process.env.NUXT_STORAGE_FOLDER!],
       },
     },
   },
