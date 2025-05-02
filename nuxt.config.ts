@@ -1,7 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-import { DB_FILE_PATH } from "./constants";
-
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
 
@@ -24,7 +22,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     openaiApiKey: "",
-    dbFilePath: DB_FILE_PATH,
+    dbFilePath: process.env.NUXT_DB_FILE_PATH,
   },
 
   css: ["~/assets/css/main.css"],
