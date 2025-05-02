@@ -1,12 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-const STORAGE_FOLDER =
-  process.env.NODE_ENV === "production" ? "./public/uploads" : "./tmp";
+import { DB_FILE_PATH } from "./drizzle.config";
 
-const DB_FILE_PATH =
-  process.env.NODE_ENV === "production"
-    ? "file:/app/db/db.sqlite"
-    : "file:./tmp/db.sqlite";
+export const STORAGE_FOLDER =
+  process.env.NODE_ENV === "production" ? "./public/uploads" : "./tmp";
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",

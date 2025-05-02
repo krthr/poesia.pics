@@ -30,6 +30,7 @@ ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 ADD . .
+RUN npx drizzle-kit migrate
 RUN npm run build
 
 # Production stage
