@@ -5,7 +5,7 @@ const STORAGE_FOLDER =
 
 const DB_FILE_PATH =
   process.env.NODE_ENV === "production"
-    ? "file:/app/db.sqlite"
+    ? "file:/app/db/db.sqlite"
     : "file:./tmp/db.sqlite";
 
 console.log({ STORAGE_FOLDER, DB_FILE_PATH });
