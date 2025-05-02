@@ -12,8 +12,8 @@ export default defineNuxtConfig({
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       htmlAttrs: { lang: "es" },
-      title: "Poesia.pics - Convierte tus imágenes en poemas con IA",
-      link: [{ rel: "canonical", href: "https://poesia.pics" }],
+      // title: "Poesia.pics - Convierte tus imágenes en poemas con IA",
+      // link: [{ rel: "canonical", href: "https://poesia.pics" }],
     },
   },
 
@@ -57,6 +57,11 @@ export default defineNuxtConfig({
 
   ui: {
     colorMode: false,
+  },
+
+  site: {
+    url: "https://poesia.pics",
+    name: "Poesia.pics - Convierte tus imágenes en poemas con IA",
   },
 
   seo: {

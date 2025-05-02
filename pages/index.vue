@@ -3,11 +3,14 @@ import type { InputMenuItem } from "@nuxt/ui";
 
 import { MOODS_LIST } from "~/server/constants/moods";
 
-// defineOgImageComponent("Index", {
-//   title: "Poesia.pics - Convierte tus imágenes en poemas con IA",
-//   description:
-//     "Poesia.pics transforma tus fotografías en hermosos poemas utilizando Inteligencia Artificial. Sube una imagen y descubre la poesía que esconde.",
-// });
+defineOgImageComponent("NuxtSeo", {
+  title: "poesia.pics 💖",
+  description:
+    "Transforma tus fotografías en hermosos poemas utilizando Inteligencia Artificial. Sube una imagen y descubre la poesía que esconde.",
+  theme: "#ff2056",
+  icon: "ph:heart-fill",
+  siteName: "poesia.pics",
+});
 
 const toast = useToast();
 const imageInput = ref<HTMLInputElement | null>(null);
