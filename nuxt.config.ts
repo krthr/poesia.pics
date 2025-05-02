@@ -32,7 +32,6 @@ export default defineNuxtConfig({
     provider: "ipx",
 
     ipx: {
-      baseURL: "/images",
       fs: {
         dir: [process.env.NUXT_STORAGE_FOLDER!],
       },
