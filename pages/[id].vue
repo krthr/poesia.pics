@@ -6,6 +6,22 @@ const { data, error } = await useFetch(`/api/poems/${id}`);
 if (error.value) {
   throw createError({ ...error.value });
 }
+
+const currentUrl = window.location.href;
+const SHARE_BUTTONS = [
+  {
+    icon: "ph:facebook-logo",
+    url: `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`,
+  },
+  {
+    icon: "ph:whatsapp-logo",
+    url: `https://wa.me/?text=${data.value?.title} ${currentUrl}`,
+  },
+  {
+    icon: "ph:x-logo",
+    url: `https://twitter.com/share?url=${currentUrl}&text=${data.value?.title}`,
+  },
+];
 </script>
 
 <template>
@@ -88,18 +104,15 @@ if (error.value) {
         title="Comparte tu poema usando el hashtag #PoesiaPics"
         :ui="{ logos: 'justify-center gap-4' }"
       >
-        <UButton icon="ph:x-logo" variant="ghost" color="neutral" size="xl" />
         <UButton
-          icon="ph:facebook-logo"
+          v-for="({ icon, url }, index) in SHARE_BUTTONS"
+          :key="index"
+          :icon="icon"
           variant="ghost"
           color="neutral"
           size="xl"
-        />
-        <UButton
-          icon="ph:whatsapp-logo"
-          variant="ghost"
-          color="neutral"
-          size="xl"
+          :href="url"
+          target="_blank"
         />
 
         <UButton
