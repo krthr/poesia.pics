@@ -1,9 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
-console.log({
-  NUXT_STORAGE_FOLDER: process.env.NUXT_STORAGE_FOLDER,
-});
-
 const uploadFolder = () =>
   process.env.NODE_ENV === "production"
     ? {
@@ -16,8 +12,6 @@ const uploadFolder = () =>
     : {
         dir: process.env.NUXT_STORAGE_FOLDER!,
       };
-
-console.log("uploadFolder", uploadFolder());
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",

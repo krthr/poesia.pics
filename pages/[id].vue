@@ -17,6 +17,7 @@ const moodLabel = mood ? MOODS_DICT[mood].label : undefined;
   <UPage>
     <UPageBody>
       <UPageSection
+        id="poem"
         :title="data?.title"
         :ui="{
           container: 'py-2 sm:py-4 lg:py-8',
@@ -53,19 +54,22 @@ const moodLabel = mood ? MOODS_DICT[mood].label : undefined;
             orientation="horizontal"
             type="dashed"
           />
-
-          <div>
-            <UAlert
-              icon="ph:clock"
-              :description="`Tu poema será eliminado en ${data?.remainingHours} horas`"
-              color="warning"
-              variant="soft"
-            />
-          </div>
         </template>
       </UPageSection>
 
+      <UPageSection :ui="{ container: 'py-0!' }">
+        <div class="mx-auto max-w-[400px]">
+          <UAlert
+            icon="ph:clock"
+            :description="`Tu poema será eliminado en ${data?.remainingHours} horas`"
+            color="warning"
+            variant="outline"
+          />
+        </div>
+      </UPageSection>
+
       <PoemShareButtons :poem="data!" />
+      <PoemDownload :poem="data!" />
     </UPageBody>
   </UPage>
 </template>

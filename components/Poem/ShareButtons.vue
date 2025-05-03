@@ -78,6 +78,4 @@ if (import.meta.client) {
       @click="share"
     />
   </UPageLogos>
-
-  <UButton variant="ghost">Descargar poema</UButton>
 </template>
