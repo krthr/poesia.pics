@@ -79,5 +79,5 @@ if (import.meta.client) {
     />
   </UPageLogos>
 
-  <UButton>Descargar poema</UButton>
+  <UButton variant="ghost">Descargar poema</UButton>
 </template>
