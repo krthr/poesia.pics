@@ -1,5 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
+console.log({
+  NUXT_STORAGE_FOLDER: process.env.NUXT_STORAGE_FOLDER,
+});
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
 
@@ -44,14 +48,8 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
 
   image: {
+    dir: process.env.NUXT_STORAGE_FOLDER!,
     format: ["webp", "jpeg", "jpg"],
-    provider: "ipx",
-
-    ipx: {
-      fs: {
-        dir: [process.env.NUXT_STORAGE_FOLDER!],
-      },
-    },
   },
 
   ui: {
