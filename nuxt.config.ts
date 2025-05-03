@@ -48,8 +48,15 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
 
   image: {
-    dir: process.env.NUXT_STORAGE_FOLDER!,
     format: ["webp", "jpeg", "jpg"],
+
+    ...(process.env.NODE_ENV === "production"
+      ? {
+          ipx: { fs: { dir: [process.env.NUXT_STORAGE_FOLDER!] } },
+        }
+      : {
+          dir: process.env.NUXT_STORAGE_FOLDER!,
+        }),
   },
 
   ui: {
