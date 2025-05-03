@@ -72,7 +72,8 @@ async function generateAndDownloadImage() {
 <template>
   <div class="flex justify-center">
     <UButton
-      variant="soft"
+      variant="subtle"
+      color="neutral"
       size="xl"
       icon="ph:download"
       @click="generateAndDownloadImage"
