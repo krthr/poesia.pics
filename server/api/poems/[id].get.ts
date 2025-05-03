@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
 
   const remainingHours = Math.ceil(24 - elapsedHours);
 
-  if (remainingHours < 24) {
+  if (remainingHours <= 0) {
     throw createError({
       statusCode: 404,
       statusMessage: "Poema expirado.",

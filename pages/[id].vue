@@ -6,11 +6,18 @@ const id = useRoute().params["id"];
 const { data, error } = await useFetch(`/api/poems/${id}`);
 
 if (error.value) {
-  throw createError({ ...error.value });
+  throw createError({ ...error.value, fatal: true });
 }
 
 const mood = data.value?.mood;
 const moodLabel = mood ? MOODS_DICT[mood].label : undefined;
+
+defineOgImageComponent("Frame", {
+  title: "💖 poesia.pics",
+  description:
+    "Transforma tus fotografías en hermosos poemas utilizando Inteligencia Artificial. Sube una imagen y descubre la poesía que esconde.",
+  bg: "linear-gradient(to bottom right, #ff637e, #c70036)",
+});
 </script>
 
 <template>
