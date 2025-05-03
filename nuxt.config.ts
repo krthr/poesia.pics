@@ -4,6 +4,21 @@ console.log({
   NUXT_STORAGE_FOLDER: process.env.NUXT_STORAGE_FOLDER,
 });
 
+const uploadFolder = () =>
+  process.env.NODE_ENV === "production"
+    ? {
+        ipx: {
+          fs: {
+            dir: [process.env.NUXT_STORAGE_FOLDER!],
+          },
+        },
+      }
+    : {
+        dir: process.env.NUXT_STORAGE_FOLDER!,
+      };
+
+console.log("uploadFolder", uploadFolder());
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
 
@@ -49,14 +64,8 @@ export default defineNuxtConfig({
 
   image: {
     format: ["webp", "jpeg", "jpg"],
-
-    ...(process.env.NODE_ENV === "production"
-      ? {
-          ipx: { fs: { dir: [process.env.NUXT_STORAGE_FOLDER!] } },
-        }
-      : {
-          dir: process.env.NUXT_STORAGE_FOLDER!,
-        }),
+    provider: "ipx",
+    ...uploadFolder(),
   },
 
   ui: {
