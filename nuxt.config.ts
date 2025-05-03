@@ -12,8 +12,6 @@ export default defineNuxtConfig({
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1",
       htmlAttrs: { lang: "es" },
-      // title: "Poesia.pics - Convierte tus imágenes en poemas con IA",
-      // link: [{ rel: "canonical", href: "https://poesia.pics" }],
     },
   },
 
@@ -38,7 +36,7 @@ export default defineNuxtConfig({
     openaiApiKey: "",
     dbFilePath: process.env.NUXT_DB_FILE_PATH,
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://poesia.pics",
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://beta.poesia.pics",
     },
   },
 
@@ -60,7 +58,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: "https://poesia.pics",
+    url: "https://beta.poesia.pics",
     name: "Poesia.pics - Convierte tus imágenes en poemas con IA",
   },
 
@@ -73,7 +71,7 @@ export default defineNuxtConfig({
       ogDescription:
         "Transforma tus fotografías en hermosos poemas utilizando Inteligencia Artificial.",
       ogImage: "/og-image.jpg",
-      ogUrl: "https://poesia.pics",
+      ogUrl: "https://beta.poesia.pics",
       ogType: "website",
       twitterCard: "summary_large_image",
       twitterTitle: "Poesia.pics - Convierte tus imágenes en poemas con IA",
