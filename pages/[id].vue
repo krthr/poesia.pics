@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { MOODS_DICT } from "~/server/constants/moods";
+
 const id = useRoute().params["id"];
 
 const { data, error } = await useFetch(`/api/poems/${id}`);
@@ -6,6 +8,9 @@ const { data, error } = await useFetch(`/api/poems/${id}`);
 if (error.value) {
   throw createError({ ...error.value });
 }
+
+const mood = data.value?.mood;
+const moodLabel = mood ? MOODS_DICT[mood].label : undefined;
 </script>
 
 <template>
@@ -38,8 +43,8 @@ if (error.value) {
             {{ data?.poem }}
           </p>
 
-          <UBadge class="mt-4" color="neutral" variant="soft">
-            {{ data?.mood }}
+          <UBadge v-if="moodLabel" class="mt-4" color="neutral" variant="soft">
+            {{ moodLabel }}
           </UBadge>
 
           <USeparator
