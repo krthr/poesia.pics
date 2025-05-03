@@ -6,7 +6,7 @@ import type { Mood } from "../constants/moods";
 import { nanoid } from "nanoid";
 import { pick } from "es-toolkit";
 import { useImageService } from "./image";
-import { PROMPT } from "../ai/prompt";
+import { generatePrompt } from "../ai/prompt";
 import { chatCompletion } from "../ai";
 import { z } from "zod";
 import { poems } from "../db/schema";
@@ -28,7 +28,7 @@ export async function useGeneratePoem(
     return processedImageResult;
   }
 
-  const prompt = PROMPT;
+  const prompt = generatePrompt(mood, "Español");
   const processedImage = processedImageResult.value;
 
   logger.info(context, "generating poem");
