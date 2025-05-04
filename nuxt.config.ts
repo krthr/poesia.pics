@@ -47,6 +47,7 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    adminPassword: "",
     openaiApiKey: "",
     dbFilePath: process.env.NUXT_DB_FILE_PATH,
     public: {
