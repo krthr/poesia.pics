@@ -92,6 +92,12 @@ export default defineNuxtConfig({
     },
   },
 
+  ogImage: {
+    defaults: {
+      extension: "jpeg",
+    },
+  },
+
   robots: {
     blockNonSeoBots: true,
     blockAiBots: true,
