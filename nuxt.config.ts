@@ -99,8 +99,9 @@ export default defineNuxtConfig({
   },
 
   robots: {
-    blockNonSeoBots: true,
     blockAiBots: true,
+    blockNonSeoBots: true,
+    disallow: ["/admin"],
   },
 
   $production: {
