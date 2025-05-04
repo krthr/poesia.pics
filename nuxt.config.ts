@@ -51,7 +51,7 @@ export default defineNuxtConfig({
     openaiApiKey: "",
     dbFilePath: process.env.NUXT_DB_FILE_PATH,
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://beta.poesia.pics",
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://poesia.pics",
       posthogPublicKey: "",
       posthogHost: "",
     },
@@ -70,7 +70,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: "https://beta.poesia.pics",
+    url: "https://poesia.pics",
     name: "Poesia.pics - Convierte tus imágenes en poemas con IA",
   },
 
@@ -83,7 +83,7 @@ export default defineNuxtConfig({
       ogDescription:
         "Transforma tus fotografías en hermosos poemas utilizando Inteligencia Artificial.",
       ogImage: "/og-image.jpg",
-      ogUrl: "https://beta.poesia.pics",
+      ogUrl: "https://poesia.pics",
       ogType: "website",
       twitterCard: "summary_large_image",
       twitterTitle: "Poesia.pics - Convierte tus imágenes en poemas con IA",
