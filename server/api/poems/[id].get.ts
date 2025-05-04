@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { pick } from "es-toolkit";
 import { db } from "~/server/db";
-import { poems } from "~/server/db/schema";
+import { poemsWithExtraFields } from "~/server/db/schema";
 
 export interface PoemJson {
   title: string;
@@ -13,17 +13,17 @@ export interface PoemJson {
   imageRatio: number | null;
   imageWidth: number | null;
   mood: "default" | "romantic" | "erotic" | "melancholic" | "fun";
-  elapsedHours: number;
   remainingHours: number;
 }
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, "id");
 
-  const poem = await db.query.poems.findFirst({
-    where: eq(poems.id, id!),
-    columns: { metadata: false },
-  });
+  const [poem] = await db
+    .select()
+    .from(poemsWithExtraFields)
+    .where(eq(poemsWithExtraFields.id, id!))
+    .limit(1);
 
   if (!poem) {
     throw createError({
@@ -32,12 +32,7 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const elapsedHours =
-    (new Date().getTime() - poem.createdAt!.getTime()) / 1000 / 60 / 60;
-
-  const remainingHours = Math.ceil(24 - elapsedHours);
-
-  if (remainingHours <= 0) {
+  if (poem.isExpired) {
     throw createError({
       statusCode: 404,
       statusMessage: "Poema expirado.",
@@ -55,8 +50,7 @@ export default defineEventHandler(async (event) => {
       "imageRatio",
       "imageWidth",
       "mood",
+      "remainingHours",
     ]),
-    elapsedHours,
-    remainingHours,
   } as PoemJson;
 });

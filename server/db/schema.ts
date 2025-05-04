@@ -1,6 +1,13 @@
 import type { SQL } from "drizzle-orm";
-import { sql } from "drizzle-orm";
-import { sqliteTable, text, numeric, integer } from "drizzle-orm/sqlite-core";
+import { getTableColumns, sql } from "drizzle-orm";
+import {
+  sqliteTable,
+  text,
+  numeric,
+  integer,
+  sqliteView,
+  QueryBuilder,
+} from "drizzle-orm/sqlite-core";
 import { nanoid } from "nanoid";
 
 export const poems = sqliteTable("poems", {
@@ -34,3 +41,21 @@ export const poems = sqliteTable("poems", {
   createdAt: integer({ mode: "timestamp" }).$defaultFn(() => new Date()),
   updatedAt: integer({ mode: "timestamp" }).$defaultFn(() => new Date()),
 });
+
+// https://github.com/drizzle-team/drizzle-orm/issues/3332#issuecomment-2663764515
+const qb = new QueryBuilder({ casing: "snake_case" });
+export const poemsWithExtraFields = sqliteView("poems_with_extra_fields").as(
+  qb
+    .select({
+      ...getTableColumns(poems),
+      isExpired:
+        sql<boolean>`unixepoch() - ${poems.createdAt} > (60 * 60 * 24)`.as(
+          "is_expired"
+        ),
+      remainingHours:
+        sql<number>`(unixepoch() - ${poems.createdAt}) * 1.0 / 60 / 60`.as(
+          "remaining_hours"
+        ),
+    })
+    .from(poems)
+);

@@ -1,0 +1,1 @@
+CREATE VIEW `poems_with_extra_fields` AS select "id", "title", "poem", "mood", "image_path", "image_width", "image_height", "image_ratio", "image_preview", "metadata", "created_at", "updated_at", unixepoch() - "created_at" > (60 * 60 * 24) as "is_expired", (unixepoch() - "created_at") * 1.0 / 60 / 60 as "remaining_hours" from "poems";
