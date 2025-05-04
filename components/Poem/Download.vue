@@ -52,7 +52,15 @@ async function generateImage() {
   }
 }
 
+const downloading = ref(false);
+
 async function generateAndDownloadImage() {
+  if (downloading.value) {
+    return;
+  }
+
+  downloading.value = true;
+
   const title = poem.title;
   console.log({ title }, "generateAndDownloadImage");
 
@@ -66,6 +74,8 @@ async function generateAndDownloadImage() {
 
     URL.revokeObjectURL(dataUrl);
   }
+
+  downloading.value = false;
 }
 </script>
 
@@ -76,6 +86,7 @@ async function generateAndDownloadImage() {
       color="neutral"
       size="xl"
       icon="ph:download"
+      :loading="downloading"
       @click="generateAndDownloadImage"
     >
       Descargar poema

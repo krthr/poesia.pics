@@ -74,7 +74,8 @@ if (import.meta.client) {
       variant="ghost"
       color="neutral"
       size="xl"
-      :disabled="!canShare && isSharing"
+      :disabled="!canShare"
+      :loading="isSharing"
       @click="share"
     />
   </UPageLogos>
