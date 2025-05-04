@@ -9,6 +9,8 @@ if (error.value) {
   throw createError({ ...error.value, fatal: true });
 }
 
+const remainingHours = data.value?.remainingHours.toFixed(0);
+
 const mood = data.value?.mood;
 const moodLabel = mood ? MOODS_DICT[mood].label : undefined;
 
@@ -64,11 +66,11 @@ defineOgImageComponent("Frame", {
         </template>
       </UPageSection>
 
-      <UPageSection :ui="{ container: 'py-0!' }">
+      <UPageSection v-if="remainingHours" :ui="{ container: 'py-0!' }">
         <div class="mx-auto max-w-[400px]">
           <UAlert
             icon="ph:clock"
-            :description="`Tu poema será eliminado en ${data?.remainingHours} horas`"
+            :description="`Tu poema será eliminado en ${remainingHours} horas`"
             color="warning"
             variant="outline"
           />

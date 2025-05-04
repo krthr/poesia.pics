@@ -1,0 +1,214 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "f6ef32a5-98e2-42de-a9f5-00e9bef18600",
+  "prevId": "2cc920eb-0868-4697-9507-cba73961b717",
+  "tables": {
+    "poems": {
+      "name": "poems",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "poem": {
+          "name": "poem",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "mood": {
+          "name": "mood",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "image_path": {
+          "name": "image_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "image_width": {
+          "name": "image_width",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image_height": {
+          "name": "image_height",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image_ratio": {
+          "name": "image_ratio",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "generated": {
+            "as": "(case \n        when \"image_width\" is not null and \"image_height\" is not null then\n          (\"image_width\" * 1.0) / (\"image_height\" * 1.0)\n        else null end\n      )",
+            "type": "virtual"
+          }
+        },
+        "image_preview": {
+          "name": "image_preview",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'{}'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {
+    "poems_with_extra_fields": {
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "poem": {
+          "name": "poem",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "mood": {
+          "name": "mood",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "imagePath": {
+          "name": "imagePath",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "imageWidth": {
+          "name": "imageWidth",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "imageHeight": {
+          "name": "imageHeight",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "imageRatio": {
+          "name": "imageRatio",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "generated": {
+            "as": "(case \n        when \"image_width\" is not null and \"image_height\" is not null then\n          (\"image_width\" * 1.0) / (\"image_height\" * 1.0)\n        else null end\n      )",
+            "type": "virtual"
+          }
+        },
+        "imagePreview": {
+          "name": "imagePreview",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'{}'"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "name": "poems_with_extra_fields",
+      "isExisting": false,
+      "definition": "select \"id\", \"title\", \"poem\", \"mood\", \"image_path\", \"image_width\", \"image_height\", \"image_ratio\", \"image_preview\", \"metadata\", \"created_at\", \"updated_at\", unixepoch() - \"created_at\" > (60 * 60 * 24) as \"is_expired\", 24 - ((unixepoch() - \"created_at\") * 1.0 / 60 / 60) as \"remaining_hours\" from \"poems\""
+    }
+  },
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}

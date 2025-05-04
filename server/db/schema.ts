@@ -53,7 +53,7 @@ export const poemsWithExtraFields = sqliteView("poems_with_extra_fields").as(
           "is_expired"
         ),
       remainingHours:
-        sql<number>`(unixepoch() - ${poems.createdAt}) * 1.0 / 60 / 60`.as(
+        sql<number>`24 - ((unixepoch() - ${poems.createdAt}) * 1.0 / 60 / 60)`.as(
           "remaining_hours"
         ),
     })
