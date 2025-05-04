@@ -1,29 +1,50 @@
 <script setup lang="ts">
-import { NuxtLink } from "#components";
+import { NuxtImg, NuxtLink } from "#components";
 import type { TableColumn } from "@nuxt/ui";
 import type { poemsWithExtraFields } from "~/server/db/schema";
 
 const password = useRoute().query["password"];
 
-const { data } = await useFetch("/api/poems", {
+const { data, status } = await useFetch("/api/poems", {
   query: { password },
   server: false,
 });
 
 const columns: TableColumn<typeof poemsWithExtraFields.$inferSelect> = [
   {
-    accessorKey: "id",
-    header: "#",
+    id: "image",
     cell: ({ row }) => {
-      return h(
-        NuxtLink,
-        { to: row.getValue("id"), target: "_blank", class: "font-bold" },
-        () => row.getValue("id")
-      );
+      return h(NuxtLink, { to: row.original.id, target: "_blank" }, [
+        h(NuxtImg, {
+          class: "max-w-[100px] rounded-md",
+          src: row.original.imagePath,
+        }),
+      ]);
     },
   },
-  { accessorKey: "title" },
-  { accessorKey: "remainingHours" },
+  {
+    accessorKey: "title",
+    cell: ({ row }) => {
+      return h("p", { class: "font-bold" }, [
+        h(
+          NuxtLink,
+          { to: row.original.title, target: "_blank" },
+          () => row.original.id
+        ),
+        h("br"),
+        h(
+          NuxtLink,
+          { to: row.original.title, target: "_blank" },
+          () => row.original.title
+        ),
+      ]);
+    },
+  },
+  {
+    accessorKey: "remainingHours",
+    header: "Quedan",
+    cell: ({ row }) => (row.original.remainingHours as number).toFixed(0),
+  },
   {
     accessorKey: "createdAt",
     cell: ({ row }) => {
@@ -32,7 +53,7 @@ const columns: TableColumn<typeof poemsWithExtraFields.$inferSelect> = [
         month: "short",
         hour: "2-digit",
         minute: "2-digit",
-        hour12: false,
+        hour12: true,
       });
     },
   },
@@ -45,6 +66,7 @@ const columns: TableColumn<typeof poemsWithExtraFields.$inferSelect> = [
       <UTable
         :columns="columns"
         :data="data?.poems || []"
+        :loading="status === 'pending'"
         sticky
         :ui="{ root: 'bg-white rounded-md' }"
       />
