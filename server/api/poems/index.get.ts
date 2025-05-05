@@ -1,23 +1,17 @@
-import { desc } from "drizzle-orm";
-import { db } from "~/server/db";
-import { poemsWithExtraFields } from "~/server/db/schema";
+import { listPoems } from "~/server/db/queries";
 
 export default defineEventHandler(async (event) => {
   const { password } = getQuery(event);
 
-  console.log({ password, useRuntimeConfig: useRuntimeConfig() });
-
-  if (password !== useRuntimeConfig().adminPassword.toString()) {
+  const adminPassword = useRuntimeConfig().adminPassword.toString();
+  if (password !== adminPassword) {
     throw createError({
       statusCode: 301,
       statusMessage: "Invalid password",
     });
   }
 
-  const poems = await db
-    .select()
-    .from(poemsWithExtraFields)
-    .orderBy(desc(poemsWithExtraFields.createdAt));
+  const poems = await listPoems();
 
   return { poems };
 });

@@ -14,10 +14,12 @@ const columns: TableColumn<typeof poemsWithExtraFields.$inferSelect> = [
   {
     id: "image",
     cell: ({ row }) => {
+      const src = row.original.imageUrl + `?password=${password}`;
+
       return h(NuxtLink, { to: row.original.id, target: "_blank" }, [
         h(NuxtImg, {
           class: "max-w-[100px] rounded-md",
-          src: row.original.imagePath,
+          src,
         }),
       ]);
     },
@@ -28,13 +30,13 @@ const columns: TableColumn<typeof poemsWithExtraFields.$inferSelect> = [
       return h("p", { class: "font-bold" }, [
         h(
           NuxtLink,
-          { to: row.original.title, target: "_blank" },
+          { to: row.original.id, target: "_blank" },
           () => row.original.id
         ),
         h("br"),
         h(
           NuxtLink,
-          { to: row.original.title, target: "_blank" },
+          { to: row.original.id, target: "_blank" },
           () => row.original.title
         ),
       ]);

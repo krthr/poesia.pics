@@ -38,10 +38,10 @@ defineOgImageComponent("Frame", {
         <div class="w-full h-full flex justify-start lg:justify-end">
           <div class="w-full">
             <NuxtImg
-              :placeholder="data?.imagePreview!"
+              :placeholder="data?.imagePreview || ''"
               class="rounded-md w-full"
               format="auto"
-              :src="data?.imagePath"
+              :src="data?.imageUrl"
               :style="{ aspectRatio: data?.imageRatio }"
               width="100%"
             />

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PoemJson } from "~/server/api/poems/[id].get";
+import type { PoemJson } from "~/server/db/queries";
 
 const props = defineProps<{ poem: PoemJson }>();
 const poem = props.poem;
