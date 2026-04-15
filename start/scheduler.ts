@@ -7,3 +7,7 @@
 | at regular intervals.
 |
 */
+
+import CleanupExpiredPoemsJob from '#jobs/cleanup_expired_poems_job'
+
+CleanupExpiredPoemsJob.schedule({}).every('1h')

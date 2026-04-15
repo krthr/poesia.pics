@@ -60,9 +60,9 @@
 
 ## 8. Cleanup Scheduler
 
-- [ ] 8.1 Create CleanupExpiredPoems job that queries poems older than 24h with null deleted_at and sets deleted_at to current timestamp
-- [ ] 8.2 Register the job in start/scheduler.ts to run every hour
-- [ ] 8.3 Verify the worker runs correctly via `node ace queue:work`
+- [x] 8.1 Create CleanupExpiredPoems job that queries poems older than 24h with null deleted_at and sets deleted_at to current timestamp
+- [x] 8.2 Register the job in start/scheduler.ts to run every hour
+- [x] 8.3 Verify the worker runs correctly via `node ace queue:work`
 
 ## 9. Rate Limiting
 
