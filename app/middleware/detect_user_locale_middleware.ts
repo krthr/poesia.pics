@@ -19,27 +19,28 @@ export default class DetectUserLocaleMiddleware {
   }
 
   /**
-   * This method reads the user language from the "Accept-Language"
-   * header and returns the best matching locale by checking it
-   * against the supported locales.
-   *
-   * Feel free to use different mechanism for finding user language.
+   * Resolves the user's locale. Checks the session first (set by
+   * the language toggle), then falls back to Accept-Language header.
+   * The resolved locale is persisted to the session for subsequent
+   * requests.
    */
-  protected getRequestLocale(ctx: HttpContext) {
+  protected getRequestLocale(ctx: HttpContext): string {
+    const sessionLocale = ctx.session.get('locale') as string | undefined
+    if (sessionLocale && i18nManager.supportedLocales().includes(sessionLocale)) {
+      return sessionLocale
+    }
+
     const userLanguages = ctx.request.languages()
-    return i18nManager.getSupportedLocaleFor(userLanguages)
+    const detected = i18nManager.getSupportedLocaleFor(userLanguages)
+    return detected || i18nManager.defaultLocale
   }
 
   async handle(ctx: HttpContext, next: NextFn) {
-    /**
-     * Finding user language
-     */
     const language = this.getRequestLocale(ctx)
 
-    /**
-     * Assigning i18n property to the HTTP context
-     */
-    ctx.i18n = i18nManager.locale(language || i18nManager.defaultLocale)
+    ctx.session.put('locale', language)
+
+    ctx.i18n = i18nManager.locale(language)
 
     /**
      * Binding I18n class to the request specific instance of it.

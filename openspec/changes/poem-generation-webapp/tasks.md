@@ -20,11 +20,11 @@
 
 ## 3. i18n Setup
 
-- [ ] 3.1 Create resources/lang/es/messages.json with all Spanish translations (UI text, mood labels, mood descriptions, error messages, expiration message)
-- [ ] 3.2 Create resources/lang/en/messages.json with all English translations
-- [ ] 3.3 Configure detect_user_locale_middleware to read Accept-Language and store locale in session
-- [ ] 3.4 Create language toggle route (GET /lang/:code) that updates session locale and redirects back
-- [ ] 3.5 Add language toggle component (ES | EN) to the site header/layout
+- [x] 3.1 Create resources/lang/es/messages.json with all Spanish translations (UI text, mood labels, mood descriptions, error messages, expiration message)
+- [x] 3.2 Create resources/lang/en/messages.json with all English translations
+- [x] 3.3 Configure detect_user_locale_middleware to read Accept-Language and store locale in session
+- [x] 3.4 Create language toggle route (GET /lang/:code) that updates session locale and redirects back
+- [x] 3.5 Add language toggle component (ES | EN) to the site header/layout
 
 ## 4. Frontend & Layout
 

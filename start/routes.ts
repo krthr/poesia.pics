@@ -13,6 +13,15 @@ import router from '@adonisjs/core/services/router'
 
 router.on('/').render('pages/home').as('home')
 
+router.get('/lang/:code', async ({ params, session, response, request }) => {
+  const supported = ['es', 'en']
+  if (supported.includes(params.code)) {
+    session.put('locale', params.code)
+  }
+  const referer = request.header('referer') || '/'
+  return response.redirect(referer)
+}).as('lang.switch')
+
 router
   .group(() => {
     router.get('signup', [controllers.NewAccount, 'create'])

@@ -7,6 +7,17 @@
     </div>
     <div>
       <nav>
+        <span class="lang-toggle">
+          <a
+            href="{{ route('lang.switch', { code: 'es' }) }}"
+            class="{{ i18n.locale === 'es' ? 'lang-active' : '' }}"
+          >ES</a>
+          <span>|</span>
+          <a
+            href="{{ route('lang.switch', { code: 'en' }) }}"
+            class="{{ i18n.locale === 'en' ? 'lang-active' : '' }}"
+          >EN</a>
+        </span>
         @if(auth.user)
           @!avatar({ initials: auth.user.initials })
           @form({ route: 'session.destroy', method: 'POST' })
