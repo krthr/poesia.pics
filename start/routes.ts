@@ -16,7 +16,15 @@ const PoemController = () => import('#controllers/poem_controller')
 
 router.on('/').render('pages/home').as('home')
 router.get('/generate', [GenerateController, 'create']).as('generate.create')
+router.post('/generate', [GenerateController, 'store']).as('generate.store')
 router.get('/poem/:id', [PoemController, 'show']).as('poem.show')
+
+router.get('/uploads/poems/:filename', async ({ params, response }) => {
+  const { join } = await import('node:path')
+  const { default: app } = await import('@adonisjs/core/services/app')
+  const filePath = join(app.makePath('storage'), 'uploads', 'poems', params.filename)
+  return response.download(filePath)
+}).as('uploads.poem')
 
 router.get('/lang/:code', async ({ params, session, response, request }) => {
   const supported = ['es', 'en']

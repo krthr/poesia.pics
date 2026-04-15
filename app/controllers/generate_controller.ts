@@ -1,6 +1,12 @@
+import { randomUUID } from 'node:crypto'
+import { unlink } from 'node:fs/promises'
+import { join } from 'node:path'
+import app from '@adonisjs/core/services/app'
 import type { HttpContext } from '@adonisjs/core/http'
 import Mood from '#models/mood'
+import Poem from '#models/poem'
 import Voice from '#models/voice'
+import { generatePoem } from '#services/gemini_service'
 
 export default class GenerateController {
   async create({ view, session }: HttpContext) {
@@ -25,5 +31,72 @@ export default class GenerateController {
     }
 
     return view.render('pages/generate', { moods, voicesByMood })
+  }
+
+  async store({ request, response, session, i18n }: HttpContext) {
+    const image = request.file('image', {
+      size: '10mb',
+      extnames: ['jpg', 'jpeg', 'png', 'webp'],
+    })
+
+    if (!image || !image.isValid) {
+      session.flash('errors.image', image?.errors?.[0]?.message || i18n.t('errors.upload_required'))
+      return response.redirect().back()
+    }
+
+    const voiceId = request.input('voice_id')
+    if (!voiceId) {
+      session.flash('errors.voice_id', i18n.t('errors.voice_required'))
+      return response.redirect().back()
+    }
+
+    const voice = await Voice.query()
+      .where('id', voiceId)
+      .where('active', true)
+      .preload('mood')
+      .preload('language')
+      .first()
+
+    if (!voice) {
+      session.flash('errors.voice_id', i18n.t('errors.voice_required'))
+      return response.redirect().back()
+    }
+
+    const uploadsDir = join(app.makePath('storage'), 'uploads', 'poems')
+    const ext = image.extname || 'jpg'
+    const filename = `${randomUUID()}.${ext}`
+
+    await image.move(uploadsDir, { name: filename })
+
+    if (!image.isValid) {
+      session.flash('errors.image', image.errors[0]?.message || i18n.t('errors.upload_required'))
+      return response.redirect().back()
+    }
+
+    const filePath = join(uploadsDir, filename)
+
+    try {
+      const { readFile } = await import('node:fs/promises')
+      const imageBuffer = await readFile(filePath)
+      const mimeType = `image/${ext === 'jpg' ? 'jpeg' : ext}`
+
+      const content = await generatePoem(imageBuffer, mimeType, voice)
+
+      const poem = await Poem.create({
+        voiceId: voice.id,
+        imagePath: filename,
+        content,
+      })
+
+      return response.redirect().toRoute('poem.show', { id: poem.id })
+    } catch (error) {
+      await unlink(filePath).catch(() => {})
+
+      session.flash(
+        'error',
+        i18n.t('errors.generation_failed')
+      )
+      return response.redirect().back()
+    }
   }
 }

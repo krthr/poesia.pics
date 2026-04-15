@@ -38,11 +38,11 @@
 
 ## 5. Poem Generation (Gemini Integration)
 
-- [ ] 5.1 Create a GeminiService (app/services/gemini_service.ts) that accepts an image buffer and prompt, calls Gemini 2.5 Flash with base64 image, and returns the generated text
-- [ ] 5.2 Build the system prompt template that assembles voice.name, voice.prompt_hint, mood.slug, and language.code into a coherent instruction
-- [ ] 5.3 Create GenerateController handling POST /generate: validate input, save image to storage/uploads/poems/{uuid}.{ext}, call GeminiService, create Poem record, redirect to /poem/:id
-- [ ] 5.4 Add image serving route (GET /uploads/poems/:filename) that reads from storage directory, checking poem existence
-- [ ] 5.5 Handle Gemini errors gracefully: display user-friendly error, clean up uploaded image on failure
+- [x] 5.1 Create a GeminiService (app/services/gemini_service.ts) that accepts an image buffer and prompt, calls Gemini 2.5 Flash with base64 image, and returns the generated text
+- [x] 5.2 Build the system prompt template that assembles voice.name, voice.prompt_hint, mood.slug, and language.code into a coherent instruction
+- [x] 5.3 Create GenerateController handling POST /generate: validate input, save image to storage/uploads/poems/{uuid}.{ext}, call GeminiService, create Poem record, redirect to /poem/:id
+- [x] 5.4 Add image serving route (GET /uploads/poems/:filename) that reads from storage directory, checking poem existence
+- [x] 5.5 Handle Gemini errors gracefully: display user-friendly error, clean up uploaded image on failure
 
 ## 6. Shareable Image Generation
 
