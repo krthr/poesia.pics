@@ -11,7 +11,12 @@ import { middleware } from '#start/kernel'
 import { controllers } from '#generated/controllers'
 import router from '@adonisjs/core/services/router'
 
+const GenerateController = () => import('#controllers/generate_controller')
+const PoemController = () => import('#controllers/poem_controller')
+
 router.on('/').render('pages/home').as('home')
+router.get('/generate', [GenerateController, 'create']).as('generate.create')
+router.get('/poem/:id', [PoemController, 'show']).as('poem.show')
 
 router.get('/lang/:code', async ({ params, session, response, request }) => {
   const supported = ['es', 'en']

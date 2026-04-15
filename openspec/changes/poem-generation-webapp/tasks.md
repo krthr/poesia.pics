@@ -28,13 +28,13 @@
 
 ## 4. Frontend & Layout
 
-- [ ] 4.1 Update the layout component with Tailwind styles, minimalist design, custom fonts, and language toggle
-- [ ] 4.2 Build the landing page (GET /) with poetic description and CTA to /generate
-- [ ] 4.3 Build the generate page (GET /generate) with image upload, mood selector, and voice selector
-- [ ] 4.4 Add Alpine.js interaction on generate page: mood selection filters voices via fetch or inline data (mood × language → active voices)
-- [ ] 4.5 Build the poem display page (GET /poem/:id) showing image, poem content, voice name, mood label
-- [ ] 4.6 Build the expired poem view on /poem/:id (expiration message + CTA) shown when deleted_at is set
-- [ ] 4.7 Add share button (copy link to clipboard) and download image button to poem page
+- [x] 4.1 Update the layout component with Tailwind styles, minimalist design, custom fonts, and language toggle
+- [x] 4.2 Build the landing page (GET /) with poetic description and CTA to /generate
+- [x] 4.3 Build the generate page (GET /generate) with image upload, mood selector, and voice selector
+- [x] 4.4 Add Alpine.js interaction on generate page: mood selection filters voices via fetch or inline data (mood × language → active voices)
+- [x] 4.5 Build the poem display page (GET /poem/:id) showing image, poem content, voice name, mood label
+- [x] 4.6 Build the expired poem view on /poem/:id (expiration message + CTA) shown when deleted_at is set
+- [x] 4.7 Add share button (copy link to clipboard) and download image button to poem page
 
 ## 5. Poem Generation (Gemini Integration)
 

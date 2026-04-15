@@ -1,0 +1,72 @@
+@layout()
+  @if(poem.deletedAt)
+    {{-- Expired poem --}}
+    <section class="flex flex-col items-center justify-center py-24 text-center">
+      <h1 class="font-display text-3xl font-bold tracking-tight text-stone-900">
+        {{ i18n.t('poem.expired_title') }}
+      </h1>
+      <p class="mt-4 max-w-md text-stone-500 italic leading-relaxed">
+        {{ i18n.t('poem.expired_message') }}
+      </p>
+      <a
+        href="/generate"
+        class="mt-8 inline-block rounded-md bg-stone-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-stone-700"
+      >
+        {{ i18n.t('poem.expired_cta') }}
+      </a>
+    </section>
+  @else
+    {{-- Active poem --}}
+    <section class="py-12">
+      <div class="flex flex-col items-center">
+        {{-- Image --}}
+        <div class="w-full max-w-md overflow-hidden rounded-lg">
+          <img
+            src="/uploads/poems/{{ poem.imagePath }}"
+            alt=""
+            class="h-auto w-full object-cover"
+          />
+        </div>
+
+        {{-- Poem content --}}
+        <div class="mt-8 max-w-lg text-center">
+          <p class="whitespace-pre-line text-lg leading-relaxed italic text-stone-700">{{ poem.content }}</p>
+        </div>
+
+        {{-- Attribution --}}
+        <div class="mt-6 text-sm text-stone-400">
+          <span>{{ i18n.t('poem.voice_by', { name: poem.voice.name }) }}</span>
+          <span class="mx-2">&middot;</span>
+          <span>{{ i18n.t('poem.mood_label', { mood: i18n.t(`moods.${poem.voice.mood.slug}`) }) }}</span>
+        </div>
+
+        {{-- Actions --}}
+        <div class="mt-8 flex items-center gap-4" x-data="{ copied: false }">
+          <button
+            type="button"
+            x-on:click="navigator.clipboard.writeText(window.location.href); copied = true; setTimeout(() => copied = false, 2000)"
+            class="rounded-md border border-stone-300 px-4 py-2 text-sm font-medium text-stone-600 transition hover:bg-stone-100"
+          >
+            <span x-show="!copied">{{ i18n.t('poem.share') }}</span>
+            <span x-show="copied" x-cloak>{{ i18n.t('poem.share_copied') }}</span>
+          </button>
+          <a
+            href="/poem/{{ poem.id }}/image"
+            download="poesia-{{ poem.id }}.png"
+            class="rounded-md border border-stone-300 px-4 py-2 text-sm font-medium text-stone-600 transition hover:bg-stone-100"
+          >
+            {{ i18n.t('poem.download') }}
+          </a>
+        </div>
+
+        {{-- Create another --}}
+        <a
+          href="/generate"
+          class="mt-6 text-sm text-stone-400 underline underline-offset-2 hover:text-stone-600"
+        >
+          {{ i18n.t('poem.create_another') }}
+        </a>
+      </div>
+    </section>
+  @end
+@end

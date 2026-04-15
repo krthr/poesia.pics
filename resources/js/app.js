@@ -17,4 +17,19 @@ Alpine.data('alert', function () {
   }
 })
 
+Alpine.data('generateForm', function (voicesByMood) {
+  return {
+    voicesByMood: voicesByMood || {},
+    selectedMood: '',
+    selectedVoice: '',
+    get availableVoices() {
+      return this.voicesByMood[this.selectedMood] || []
+    },
+    selectMood(mood) {
+      this.selectedMood = mood
+      this.selectedVoice = ''
+    },
+  }
+})
+
 Alpine.start()

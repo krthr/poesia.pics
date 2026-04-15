@@ -1,0 +1,96 @@
+@layout()
+  <section class="mx-auto max-w-md py-12">
+    <h1 class="font-display text-3xl font-bold tracking-tight text-stone-900">
+      {{ i18n.t('generate.title') }}
+    </h1>
+
+    <form
+      action="/generate"
+      method="POST"
+      enctype="multipart/form-data"
+      class="mt-8 flex flex-col gap-6"
+      x-data="generateForm({{ js.stringify(voicesByMood) }})"
+    >
+      {{ csrfField() }}
+
+      {{-- Image upload --}}
+      <div>
+        <label for="image" class="mb-1 block text-sm font-medium text-stone-700">
+          {{ i18n.t('generate.upload_label') }}
+        </label>
+        <input
+          type="file"
+          id="image"
+          name="image"
+          accept="image/jpeg,image/png,image/webp"
+          required
+          class="block w-full text-sm text-stone-500 file:mr-4 file:rounded-md file:border-0 file:bg-stone-100 file:px-4 file:py-2 file:text-sm file:font-medium file:text-stone-700 hover:file:bg-stone-200"
+        />
+        <p class="mt-1 text-xs text-stone-400">{{ i18n.t('generate.upload_hint') }}</p>
+        @if(flashMessages.has('errors.image'))
+          <p class="mt-1 text-sm text-red-600">{{ flashMessages.get('errors.image') }}</p>
+        @end
+      </div>
+
+      {{-- Mood selector --}}
+      <div>
+        <label class="mb-2 block text-sm font-medium text-stone-700">
+          {{ i18n.t('generate.mood_label') }}
+        </label>
+        <div class="flex flex-wrap gap-2">
+          @each(mood in moods)
+            <button
+              type="button"
+              x-on:click="selectMood('{{ mood.slug }}')"
+              :class="selectedMood === '{{ mood.slug }}'
+                ? 'bg-stone-900 text-white'
+                : 'bg-stone-100 text-stone-600 hover:bg-stone-200'"
+              class="rounded-full px-4 py-2 text-sm font-medium transition"
+            >
+              {{ i18n.t(`moods.${mood.slug}`) }}
+            </button>
+          @end
+        </div>
+        <input type="hidden" name="mood_slug" x-model="selectedMood" />
+        @if(flashMessages.has('errors.mood_slug'))
+          <p class="mt-1 text-sm text-red-600">{{ flashMessages.get('errors.mood_slug') }}</p>
+        @end
+      </div>
+
+      {{-- Voice selector --}}
+      <div>
+        <label for="voice_id" class="mb-1 block text-sm font-medium text-stone-700">
+          {{ i18n.t('generate.voice_label') }}
+        </label>
+        <select
+          id="voice_id"
+          name="voice_id"
+          x-model="selectedVoice"
+          :disabled="!selectedMood"
+          class="w-full rounded-md border border-stone-300 bg-white px-3 py-2 text-sm text-stone-700 disabled:cursor-not-allowed disabled:bg-stone-50 disabled:text-stone-400"
+        >
+          <option value="">
+            <template x-if="!selectedMood">
+              <span>{{ i18n.t('generate.voice_placeholder') }}</span>
+            </template>
+          </option>
+          <template x-for="voice in availableVoices" :key="voice.id">
+            <option :value="voice.id" x-text="voice.name"></option>
+          </template>
+        </select>
+        @if(flashMessages.has('errors.voice_id'))
+          <p class="mt-1 text-sm text-red-600">{{ flashMessages.get('errors.voice_id') }}</p>
+        @end
+      </div>
+
+      {{-- Submit --}}
+      <button
+        type="submit"
+        class="rounded-md bg-stone-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:bg-stone-300"
+        :disabled="!selectedMood || !selectedVoice"
+      >
+        {{ i18n.t('generate.submit') }}
+      </button>
+    </form>
+  </section>
+@end
