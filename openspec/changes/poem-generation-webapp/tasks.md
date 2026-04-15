@@ -1,13 +1,13 @@
 ## 1. Dependencies & Configuration
 
-- [ ] 1.1 Install Tailwind CSS and @tailwindcss/vite, configure in vite.config.ts, update resources/css/app.css with `@import "tailwindcss"` directive
-- [ ] 1.2 Add web fonts (Playfair Display, Lora) and configure Tailwind theme with custom font families
-- [ ] 1.3 Install @adonisjs/i18n via `node ace add @adonisjs/i18n`, configure default locale `es` and supported locales `[es, en]`
-- [ ] 1.4 Install @adonisjs/queue via `node ace add @adonisjs/queue` with database backend, run migrations
-- [ ] 1.5 Install @adonisjs/limiter via `node ace add @adonisjs/limiter` with database backend, run migrations
-- [ ] 1.6 Install @google/genai package
-- [ ] 1.7 Install satori and @resvg/resvg-js packages
-- [ ] 1.8 Add GEMINI_API_KEY to .env.example and start/env.ts validation
+- [x] 1.1 Install Tailwind CSS and @tailwindcss/vite, configure in vite.config.ts, update resources/css/app.css with `@import "tailwindcss"` directive
+- [x] 1.2 Add web fonts (Playfair Display, Lora) and configure Tailwind theme with custom font families
+- [x] 1.3 Install @adonisjs/i18n via `node ace add @adonisjs/i18n`, configure default locale `es` and supported locales `[es, en]`
+- [x] 1.4 Install @adonisjs/queue via `node ace add @adonisjs/queue` with database backend, run migrations
+- [x] 1.5 Install @adonisjs/limiter via `node ace add @adonisjs/limiter` with database backend, run migrations
+- [x] 1.6 Install @google/genai package
+- [x] 1.7 Install satori and @resvg/resvg-js packages
+- [x] 1.8 Add GEMINI_API_KEY to .env.example and start/env.ts validation
 
 ## 2. Data Model
 

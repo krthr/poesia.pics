@@ -24,4 +24,13 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   // Session
   SESSION_DRIVER: Env.schema.enum(['cookie', 'memory', 'database'] as const),
+
+  // Queue
+  QUEUE_DRIVER: Env.schema.enum(['database', 'sync'] as const),
+
+  // Rate limiter
+  LIMITER_STORE: Env.schema.enum(['database', 'memory'] as const),
+
+  // Gemini AI
+  GEMINI_API_KEY: Env.schema.string(),
 })
