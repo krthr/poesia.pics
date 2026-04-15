@@ -7,6 +7,49 @@
 import { BaseModel, column } from '@adonisjs/lucid/orm'
 import { DateTime } from 'luxon'
 
+export class LanguageSchema extends BaseModel {
+  static $columns = ['code', 'id', 'name'] as const
+  $columns = LanguageSchema.$columns
+  @column()
+  declare code: string
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare name: string
+}
+
+export class MoodSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'slug', 'updatedAt'] as const
+  $columns = MoodSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare slug: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class PoemSchema extends BaseModel {
+  static $columns = ['content', 'createdAt', 'deletedAt', 'id', 'imageDesc', 'imagePath', 'voiceId'] as const
+  $columns = PoemSchema.$columns
+  @column()
+  declare content: string
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column.dateTime()
+  declare deletedAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare imageDesc: string | null
+  @column()
+  declare imagePath: string
+  @column()
+  declare voiceId: number
+}
+
 export class QueueJobSchema extends BaseModel {
   static $columns = ['acquiredAt', 'data', 'error', 'executeAt', 'finishedAt', 'id', 'queue', 'score', 'status', 'workerId'] as const
   $columns = QueueJobSchema.$columns
@@ -89,6 +132,27 @@ export class UserSchema extends BaseModel {
   declare id: number
   @column({ serializeAs: null })
   declare password: string
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
+export class VoiceSchema extends BaseModel {
+  static $columns = ['active', 'createdAt', 'id', 'languageId', 'moodId', 'name', 'promptHint', 'updatedAt'] as const
+  $columns = VoiceSchema.$columns
+  @column()
+  declare active: boolean
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime
+  @column({ isPrimary: true })
+  declare id: number
+  @column()
+  declare languageId: number
+  @column()
+  declare moodId: number
+  @column()
+  declare name: string
+  @column()
+  declare promptHint: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
 }

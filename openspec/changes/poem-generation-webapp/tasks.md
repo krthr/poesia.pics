@@ -11,12 +11,12 @@
 
 ## 2. Data Model
 
-- [ ] 2.1 Create migration and Lucid model for Language (id, name, code)
-- [ ] 2.2 Create migration and Lucid model for Mood (id, slug, created_at, updated_at)
-- [ ] 2.3 Create migration and Lucid model for Voice (id, name, language_id, mood_id, prompt_hint, active, created_at, updated_at) with foreign keys
-- [ ] 2.4 Create migration and Lucid model for Poem (id, voice_id, image_path, image_desc, content, created_at, deleted_at) with foreign key and soft delete support
-- [ ] 2.5 Define Lucid relationships: Language hasMany Voice, Mood hasMany Voice, Voice belongsTo Language/Mood and hasMany Poem, Poem belongsTo Voice
-- [ ] 2.6 Create database seeder for languages (es, en) and initial moods (melancholic, romantic, erotic)
+- [x] 2.1 Create migration and Lucid model for Language (id, name, code)
+- [x] 2.2 Create migration and Lucid model for Mood (id, slug, created_at, updated_at)
+- [x] 2.3 Create migration and Lucid model for Voice (id, name, language_id, mood_id, prompt_hint, active, created_at, updated_at) with foreign keys
+- [x] 2.4 Create migration and Lucid model for Poem (id, voice_id, image_path, image_desc, content, created_at, deleted_at) with foreign key and soft delete support
+- [x] 2.5 Define Lucid relationships: Language hasMany Voice, Mood hasMany Voice, Voice belongsTo Language/Mood and hasMany Poem, Poem belongsTo Voice
+- [x] 2.6 Create database seeder for languages (es, en) and initial moods (melancholic, romantic, erotic)
 
 ## 3. i18n Setup
 
