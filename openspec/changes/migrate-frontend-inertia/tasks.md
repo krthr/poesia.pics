@@ -1,13 +1,13 @@
 ## 1. Scaffold Inertia + Vue + Nuxt UI
 
 - [x] 1.1 Install dependencies: `@adonisjs/inertia`, `@inertiajs/vue3`, `vue`, `@vitejs/plugin-vue`, `@nuxt/ui`
-- [ ] 1.2 Run `node ace configure @adonisjs/inertia` (select Vue adapter, no SSR)
-- [ ] 1.3 Update `vite.config.ts` with plugin chain: `@adonisjs/inertia/client`, `@vitejs/plugin-vue`, `@nuxt/ui/vite` — remove `@adonisjs/vite/client` and `@tailwindcss/vite`
-- [ ] 1.4 Update `adonisrc.ts`: add inertia provider and commands, keep edge provider for coexistence
-- [ ] 1.5 Create `resources/views/inertia_layout.edge` HTML shell with `@inertia` tag and `isolate` class on root div
-- [ ] 1.6 Create `inertia/css/app.css` with `@import "tailwindcss"` and `@import "@nuxt/ui"`
-- [ ] 1.7 Create `inertia/app/app.ts` entrypoint: createInertiaApp, register Nuxt UI vue-plugin, resolve pages from `../pages/`
-- [ ] 1.8 Verify dev server starts with `node ace serve --hmr` — no build errors
+- [x] 1.2 Run `node ace configure @adonisjs/inertia` (select Vue adapter, no SSR)
+- [x] 1.3 Update `vite.config.ts` with plugin chain: `@adonisjs/inertia/client`, `@vitejs/plugin-vue`, `@nuxt/ui/vite` — remove `@adonisjs/vite/client` and `@tailwindcss/vite`
+- [x] 1.4 Update `adonisrc.ts`: add inertia provider and commands, keep edge provider for coexistence
+- [x] 1.5 Create `resources/views/inertia_layout.edge` HTML shell with `@inertia` tag and `isolate` class on root div
+- [x] 1.6 Create `inertia/css/app.css` with `@import "tailwindcss"` and `@import "@nuxt/ui"`
+- [x] 1.7 Create `inertia/app/app.ts` entrypoint: createInertiaApp, register Nuxt UI vue-plugin, resolve pages from `../pages/`
+- [x] 1.8 Verify dev server starts with `node ace serve --hmr` — no build errors
 
 ## 2. Shared Data and i18n Composable
 

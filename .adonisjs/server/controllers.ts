@@ -4,6 +4,13 @@
  */
 
 export const controllers = {
+  admin: {
+    Moods: () => import('#controllers/admin/moods_controller'),
+    Poems: () => import('#controllers/admin/poems_controller'),
+    Voices: () => import('#controllers/admin/voices_controller'),
+  },
+  Generate: () => import('#controllers/generate_controller'),
   NewAccount: () => import('#controllers/new_account_controller'),
+  Poem: () => import('#controllers/poem_controller'),
   Session: () => import('#controllers/session_controller'),
 }

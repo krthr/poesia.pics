@@ -1,4 +1,5 @@
 import { indexEntities } from '@adonisjs/core'
+import { indexPages } from '@adonisjs/inertia'
 import { defineConfig } from '@adonisjs/core/app'
 
 export default defineConfig({
@@ -28,6 +29,7 @@ export default defineConfig({
     () => import('@adonisjs/lucid/commands'),
     () => import('@adonisjs/session/commands'),
     () => import('@adonisjs/queue/commands'),
+    () => import('@adonisjs/inertia/commands'),
   ],
 
   /*
@@ -57,6 +59,7 @@ export default defineConfig({
     () => import('@adonisjs/i18n/i18n_provider'),
     () => import('@adonisjs/queue/queue_provider'),
     () => import('@adonisjs/limiter/limiter_provider'),
+    () => import('@adonisjs/inertia/inertia_provider'),
   ],
 
   /*
@@ -140,7 +143,7 @@ export default defineConfig({
   |
   */
   hooks: {
-    init: [indexEntities()],
+    init: [indexEntities(), indexPages({ framework: 'vue3' })],
     buildStarting: [() => import('@adonisjs/vite/build_hook')],
   },
 })

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="{{ i18n.locale }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ i18n.t('site.title') }}</title>
+    <meta name="description" content="{{ i18n.t('site.description') }}" />
+
+    @vite(['inertia/app.ts'])
+    @inertiaHead()
+  </head>
+
+  <body>
+    @inertia({ class: 'isolate' })
+  </body>
+</html>

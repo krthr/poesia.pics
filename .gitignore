@@ -13,6 +13,10 @@ tmp/*
 # Frontend assets compiled code
 public/assets
 
+# Nuxt UI auto-generated type files
+auto-imports.d.ts
+components.d.ts
+
 # Build tools specific
 npm-debug.log
 yarn-error.log

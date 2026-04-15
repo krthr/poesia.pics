@@ -1,22 +1,15 @@
 import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import inertia from '@adonisjs/inertia/vite'
 import adonisjs from '@adonisjs/vite/client'
-import tailwindcss from '@tailwindcss/vite'
+import ui from '@nuxt/ui/vite'
 
 export default defineConfig({
   plugins: [
-    tailwindcss(),
-    adonisjs({
-      /**
-       * Entrypoints of your application. Each entrypoint will
-       * result in a separate bundle.
-       */
-      entrypoints: ['resources/css/app.css', 'resources/js/app.js'],
-
-      /**
-       * Paths to watch and reload the browser on file change
-       */
-      reload: ['resources/views/**/*.edge'],
-    }),
+    vue(),
+    inertia({ ssr: { enabled: false } }),
+    adonisjs({ entrypoints: ['inertia/app.ts'], reload: ['resources/views/**/*.edge'] }),
+    ui(),
   ],
 
   server: {
