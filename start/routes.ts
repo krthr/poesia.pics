@@ -18,6 +18,7 @@ router.on('/').render('pages/home').as('home')
 router.get('/generate', [GenerateController, 'create']).as('generate.create')
 router.post('/generate', [GenerateController, 'store']).as('generate.store')
 router.get('/poem/:id', [PoemController, 'show']).as('poem.show')
+router.get('/poem/:id/image', [PoemController, 'image']).as('poem.image')
 
 router.get('/uploads/poems/:filename', async ({ params, response }) => {
   const { join } = await import('node:path')

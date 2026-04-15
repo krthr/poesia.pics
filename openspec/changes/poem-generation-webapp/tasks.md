@@ -46,9 +46,9 @@
 
 ## 6. Shareable Image Generation
 
-- [ ] 6.1 Create a PoemImageService (app/services/poem_image_service.ts) using satori + @resvg/resvg-js that takes poem data and generates a styled PNG
-- [ ] 6.2 Define the satori layout: photo (top), poem text (center), voice attribution, "poesia.pics" branding (bottom), using site fonts
-- [ ] 6.3 Create route GET /poem/:id/image that returns the PNG (Content-Type: image/png), returns 404 for expired poems
+- [x] 6.1 Create a PoemImageService (app/services/poem_image_service.ts) using satori + @resvg/resvg-js that takes poem data and generates a styled PNG
+- [x] 6.2 Define the satori layout: photo (top), poem text (center), voice attribution, "poesia.pics" branding (bottom), using site fonts
+- [x] 6.3 Create route GET /poem/:id/image that returns the PNG (Content-Type: image/png), returns 404 for expired poems
 
 ## 7. Admin Panel
 
