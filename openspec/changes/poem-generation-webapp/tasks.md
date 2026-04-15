@@ -72,6 +72,6 @@
 
 ## 10. Routes & Wiring
 
-- [ ] 10.1 Wire all public routes in start/routes.ts: GET /, GET /generate, POST /generate, GET /poem/:id, GET /poem/:id/image, GET /lang/:code, GET /uploads/poems/:filename
-- [ ] 10.2 Wire all admin routes under /admin group with auth middleware
-- [ ] 10.3 Run full migration and seed, verify application starts with `node ace serve --hmr`
+- [x] 10.1 Wire all public routes in start/routes.ts: GET /, GET /generate, POST /generate, GET /poem/:id, GET /poem/:id/image, GET /lang/:code, GET /uploads/poems/:filename
+- [x] 10.2 Wire all admin routes under /admin group with auth middleware
+- [x] 10.3 Run full migration and seed, verify application starts with `node ace serve --hmr`
