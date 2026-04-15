@@ -52,11 +52,11 @@
 
 ## 7. Admin Panel
 
-- [ ] 7.1 Create admin layout component extending the base layout with admin navigation
-- [ ] 7.2 Build MoodsController and views: list (/admin/moods), create, edit, delete (with voice association check)
-- [ ] 7.3 Build VoicesController and views: list (/admin/voices), create (with language/mood selects and prompt_hint textarea), edit, delete
-- [ ] 7.4 Build PoemsController (admin) and view: paginated list (/admin/poems) showing content preview, voice, mood, language, dates, and soft-delete status
-- [ ] 7.5 Register all admin routes under /admin group with auth middleware
+- [x] 7.1 Create admin layout component extending the base layout with admin navigation
+- [x] 7.2 Build MoodsController and views: list (/admin/moods), create, edit, delete (with voice association check)
+- [x] 7.3 Build VoicesController and views: list (/admin/voices), create (with language/mood selects and prompt_hint textarea), edit, delete
+- [x] 7.4 Build PoemsController (admin) and view: paginated list (/admin/poems) showing content preview, voice, mood, language, dates, and soft-delete status
+- [x] 7.5 Register all admin routes under /admin group with auth middleware
 
 ## 8. Cleanup Scheduler
 

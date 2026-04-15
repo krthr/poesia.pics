@@ -13,6 +13,9 @@ import router from '@adonisjs/core/services/router'
 
 const GenerateController = () => import('#controllers/generate_controller')
 const PoemController = () => import('#controllers/poem_controller')
+const AdminMoodsController = () => import('#controllers/admin/moods_controller')
+const AdminVoicesController = () => import('#controllers/admin/voices_controller')
+const AdminPoemsController = () => import('#controllers/admin/poems_controller')
 
 router.on('/').render('pages/home').as('home')
 router.get('/generate', [GenerateController, 'create']).as('generate.create')
@@ -50,4 +53,25 @@ router
   .group(() => {
     router.post('logout', [controllers.Session, 'destroy'])
   })
+  .use(middleware.auth())
+
+router
+  .group(() => {
+    router.get('moods', [AdminMoodsController, 'index']).as('admin.moods.index')
+    router.get('moods/create', [AdminMoodsController, 'create']).as('admin.moods.create')
+    router.post('moods', [AdminMoodsController, 'store']).as('admin.moods.store')
+    router.get('moods/:id/edit', [AdminMoodsController, 'edit']).as('admin.moods.edit')
+    router.put('moods/:id', [AdminMoodsController, 'update']).as('admin.moods.update')
+    router.delete('moods/:id', [AdminMoodsController, 'destroy']).as('admin.moods.destroy')
+
+    router.get('voices', [AdminVoicesController, 'index']).as('admin.voices.index')
+    router.get('voices/create', [AdminVoicesController, 'create']).as('admin.voices.create')
+    router.post('voices', [AdminVoicesController, 'store']).as('admin.voices.store')
+    router.get('voices/:id/edit', [AdminVoicesController, 'edit']).as('admin.voices.edit')
+    router.put('voices/:id', [AdminVoicesController, 'update']).as('admin.voices.update')
+    router.delete('voices/:id', [AdminVoicesController, 'destroy']).as('admin.voices.destroy')
+
+    router.get('poems', [AdminPoemsController, 'index']).as('admin.poems.index')
+  })
+  .prefix('/admin')
   .use(middleware.auth())

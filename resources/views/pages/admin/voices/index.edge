@@ -1,0 +1,49 @@
+@admin_layout()
+  <div class="flex items-center justify-between">
+    <h1 class="text-2xl font-bold text-stone-900">{{ i18n.t('admin.voices') }}</h1>
+    <a href="/admin/voices/create" class="rounded-md bg-stone-900 px-4 py-2 text-sm font-medium text-white hover:bg-stone-700">
+      {{ i18n.t('admin.create') }}
+    </a>
+  </div>
+
+  <table class="mt-6 w-full text-left text-sm">
+    <thead>
+      <tr class="border-b border-stone-200">
+        <th class="pb-2 font-medium text-stone-500">{{ i18n.t('admin.voice_name') }}</th>
+        <th class="pb-2 font-medium text-stone-500">{{ i18n.t('admin.language') }}</th>
+        <th class="pb-2 font-medium text-stone-500">{{ i18n.t('admin.mood') }}</th>
+        <th class="pb-2 font-medium text-stone-500">{{ i18n.t('admin.voice_active') }}</th>
+        <th class="pb-2 text-right font-medium text-stone-500"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(voice in voices)
+        <tr class="border-b border-stone-100">
+          <td class="py-3">{{ voice.name }}</td>
+          <td class="py-3">{{ voice.language.name }}</td>
+          <td class="py-3">{{ voice.mood.slug }}</td>
+          <td class="py-3">
+            @if(voice.active)
+              <span class="text-green-600">&#10003;</span>
+            @else
+              <span class="text-stone-300">&#10005;</span>
+            @end
+          </td>
+          <td class="py-3 text-right">
+            <a href="/admin/voices/{{ voice.id }}/edit" class="text-stone-500 hover:text-stone-900">{{ i18n.t('admin.edit') }}</a>
+            <form action="/admin/voices/{{ voice.id }}?_method=DELETE" method="POST" class="ml-4 inline">
+              {{ csrfField() }}
+              <button type="submit" class="text-red-500 hover:text-red-700" onclick="return confirm('{{ i18n.t('admin.confirm_delete') }}')">
+                {{ i18n.t('admin.delete') }}
+              </button>
+            </form>
+          </td>
+        </tr>
+      @else
+        <tr>
+          <td colspan="5" class="py-6 text-center text-stone-400">{{ i18n.t('admin.no_results') }}</td>
+        </tr>
+      @end
+    </tbody>
+  </table>
+@end

@@ -1,0 +1,52 @@
+@admin_layout()
+  <h1 class="text-2xl font-bold text-stone-900">{{ i18n.t('admin.poems') }}</h1>
+
+  <table class="mt-6 w-full text-left text-sm">
+    <thead>
+      <tr class="border-b border-stone-200">
+        <th class="pb-2 font-medium text-stone-500">ID</th>
+        <th class="pb-2 font-medium text-stone-500">{{ i18n.t('admin.poem_content') }}</th>
+        <th class="pb-2 font-medium text-stone-500">{{ i18n.t('admin.voices') }}</th>
+        <th class="pb-2 font-medium text-stone-500">{{ i18n.t('admin.mood') }}</th>
+        <th class="pb-2 font-medium text-stone-500">{{ i18n.t('admin.language') }}</th>
+        <th class="pb-2 font-medium text-stone-500">{{ i18n.t('admin.poem_status') }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(poem in poems)
+        <tr class="border-b border-stone-100 {{ poem.deletedAt ? 'opacity-50' : '' }}">
+          <td class="py-3">
+            <a href="/poem/{{ poem.id }}" class="text-stone-600 underline hover:text-stone-900">{{ poem.id }}</a>
+          </td>
+          <td class="max-w-xs truncate py-3">{{ poem.content.substring(0, 80) }}{{ poem.content.length > 80 ? '...' : '' }}</td>
+          <td class="py-3">{{ poem.voice.name }}</td>
+          <td class="py-3">{{ poem.voice.mood.slug }}</td>
+          <td class="py-3">{{ poem.voice.language.name }}</td>
+          <td class="py-3">
+            @if(poem.deletedAt)
+              <span class="text-red-500">{{ i18n.t('admin.poem_expired') }}</span>
+            @else
+              <span class="text-green-600">{{ i18n.t('admin.poem_active') }}</span>
+            @end
+          </td>
+        </tr>
+      @else
+        <tr>
+          <td colspan="6" class="py-6 text-center text-stone-400">{{ i18n.t('admin.no_results') }}</td>
+        </tr>
+      @end
+    </tbody>
+  </table>
+
+  @if(poems.lastPage > 1)
+    <div class="mt-6 flex items-center justify-center gap-2 text-sm">
+      @if(poems.currentPage > 1)
+        <a href="?page={{ poems.currentPage - 1 }}" class="rounded border border-stone-300 px-3 py-1 hover:bg-stone-100">&laquo;</a>
+      @end
+      <span class="text-stone-500">{{ poems.currentPage }} / {{ poems.lastPage }}</span>
+      @if(poems.currentPage < poems.lastPage)
+        <a href="?page={{ poems.currentPage + 1 }}" class="rounded border border-stone-300 px-3 py-1 hover:bg-stone-100">&raquo;</a>
+      @end
+    </div>
+  @end
+@end

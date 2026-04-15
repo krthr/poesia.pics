@@ -1,0 +1,34 @@
+@admin_layout()
+  <h1 class="text-2xl font-bold text-stone-900">
+    {{ mood ? i18n.t('admin.edit') : i18n.t('admin.create') }} — {{ i18n.t('admin.moods') }}
+  </h1>
+
+  <form
+    action="{{ mood ? `/admin/moods/${mood.id}?_method=PUT` : '/admin/moods' }}"
+    method="POST"
+    class="mt-6 max-w-md space-y-4"
+  >
+    {{ csrfField() }}
+
+    <div>
+      <label for="slug" class="mb-1 block text-sm font-medium text-stone-700">{{ i18n.t('admin.mood_slug') }}</label>
+      <input
+        type="text"
+        id="slug"
+        name="slug"
+        value="{{ mood?.slug || '' }}"
+        required
+        class="w-full rounded-md border border-stone-300 px-3 py-2 text-sm"
+      />
+    </div>
+
+    <div class="flex gap-3">
+      <button type="submit" class="rounded-md bg-stone-900 px-4 py-2 text-sm font-medium text-white hover:bg-stone-700">
+        {{ i18n.t('admin.save') }}
+      </button>
+      <a href="/admin/moods" class="rounded-md border border-stone-300 px-4 py-2 text-sm font-medium text-stone-600 hover:bg-stone-100">
+        {{ i18n.t('admin.cancel') }}
+      </a>
+    </div>
+  </form>
+@end
