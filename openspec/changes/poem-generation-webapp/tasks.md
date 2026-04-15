@@ -66,9 +66,9 @@
 
 ## 9. Rate Limiting
 
-- [ ] 9.1 Define throttle middleware for POST /generate (5 requests / 10 minutes / IP)
-- [ ] 9.2 Define throttle middleware for GET /poem/:id/image (10 requests / hour / IP)
-- [ ] 9.3 Register rate limit middleware on the corresponding routes in start/routes.ts
+- [x] 9.1 Define throttle middleware for POST /generate (5 requests / 10 minutes / IP)
+- [x] 9.2 Define throttle middleware for GET /poem/:id/image (10 requests / hour / IP)
+- [x] 9.3 Register rate limit middleware on the corresponding routes in start/routes.ts
 
 ## 10. Routes & Wiring
 

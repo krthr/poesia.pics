@@ -10,6 +10,7 @@
 import { middleware } from '#start/kernel'
 import { controllers } from '#generated/controllers'
 import router from '@adonisjs/core/services/router'
+import { throttleGenerate, throttleImage } from '#start/limiter'
 
 const GenerateController = () => import('#controllers/generate_controller')
 const PoemController = () => import('#controllers/poem_controller')
@@ -19,9 +20,9 @@ const AdminPoemsController = () => import('#controllers/admin/poems_controller')
 
 router.on('/').render('pages/home').as('home')
 router.get('/generate', [GenerateController, 'create']).as('generate.create')
-router.post('/generate', [GenerateController, 'store']).as('generate.store')
+router.post('/generate', [GenerateController, 'store']).as('generate.store').use(throttleGenerate)
 router.get('/poem/:id', [PoemController, 'show']).as('poem.show')
-router.get('/poem/:id/image', [PoemController, 'image']).as('poem.image')
+router.get('/poem/:id/image', [PoemController, 'image']).as('poem.image').use(throttleImage)
 
 router.get('/uploads/poems/:filename', async ({ params, response }) => {
   const { join } = await import('node:path')
